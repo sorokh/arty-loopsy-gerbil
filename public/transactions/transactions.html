@@ -1,0 +1,43 @@
+<div ng-controller="EventsController as c">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="lets-message">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i> </div>
+                         <input type="text" placeholder="Zoeken op naam, beschrijving, etc.." class="form-control" name="top-search" id="top-search" ng-model="c.search">
+                    </div>
+                </div> 
+                <div class="col-md-4 text-right">
+                    <a class="btn btn-primary">Nieuwe waardering</a>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="lets-message-title">
+                    <h3>
+                        Waarderingen
+                    </h3>
+                </div>
+                <div class="lets-message">
+                    <table class="table table-condensed">
+                        <tbody >
+                        <tr ng-repeat="txn in c.transactions">
+                            <td>{{txn.timestamp | date:'MM/dd/yyyy H:mm'}}</td>
+                            <td>{{txn.from}}</td>
+                            <td>aan</td>
+                            <td>{{txn.to}}</td>
+                            <td>{{txn.message}}</td>
+                            <td></td>
+                            <td class="text-right">{{txn.amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

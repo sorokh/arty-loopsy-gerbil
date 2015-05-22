@@ -1,0 +1,31 @@
+{
+  "name": "letsmock",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dimitrydhondt/letsmock",
+  "authors": [
+    "Dimitry D'hondt <dimitry_dhondt@yahoo.com>"
+  ],
+  "description": "Mockup of a new generation of LETS software",
+  "main": "public/index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-select": "~0.11.2",
+    "angular-sanitize": "~1.3.15",
+    "angular": "~1.3.15",
+    "angular-ui-router": "~0.2.13",
+    "angular-bootstrap": "~0.12.1",
+    "oclazyload": "~0.6.3",
+    "angular-translate": "~2.6.1",
+    "angular-animate": "~1.3.15"
+  },
+  "resolutions": {
+    "angular": "~1.3.15"
+  }
+}
