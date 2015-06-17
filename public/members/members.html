@@ -12,66 +12,22 @@
 <br>
     
 <div class="row">
-<div class="col-lg-4">
+<div ng-repeat="member in members" class="col-lg-4">
     <div class="contact-box">
         <a ui-sref="lets.profile">
             <div class="col-sm-4">
                 <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
+                    <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="{{member.imageurl}}">
                 </div>
             </div>
             <div class="col-sm-8">
-                <h3><strong>Steve Buytinck</strong></h3>
+                <h3><strong>{{member.name}}</strong></h3>
 
                 <address>
                     Kakemanstraat 64<br>
                     9280 Lebbeke<br>
                     <abbr title="Phone">GSM:</abbr> 0495 99 77 22<br>
                     Saldo : 100
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a ui-sref="lets.profile">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a1.jpg">
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Alex De Smedt</strong></h3>
-
-                <address>
-                    Stationsstraat 24<br>
-                    9200 Dendermonde<br>
-                    <abbr title="Phone">GSM:</abbr> 0478 88 21 25<br>
-                    Saldo : -100
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a ui-sref="lets.profile">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a5.jpg">
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Nathalie Gols</strong></h3>
-
-                <address>
-                    Kleine streepstraat 25<br>
-                    9200 Grembergen<br>
-                    <abbr title="Phone">Tel:</abbr> 052 77 88 33<br>
-                    Saldo: 45
                 </address>
             </div>
             <div class="clearfix"></div>
