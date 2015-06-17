@@ -26,7 +26,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
         .state('lets.members', {
             url: '/members.html',
-            templateUrl: 'members/members.html'
+            templateUrl: 'members/members.html',
+            controller: 'MembersController'
         })
         .state('lets.profile', {
             url: '/profile.html',
