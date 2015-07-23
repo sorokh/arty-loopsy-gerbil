@@ -16,7 +16,7 @@ function MembersController($scope, innergerbil) {
   //  }
   //}
 
-  innergerbil.getListResourcePaged("http://localhost:1967/parties", {
+  innergerbil.getListResourcePaged("http://localhost:5000/parties", {
     //communities: communities.join(),
     orderby: 'firstname,lastname',
     descending: false
