@@ -1,0 +1,4 @@
+#!/bin/bash
+s3cmd del --force -r s3://arty-gerbil-test
+s3cmd rb --bucket-location=EU s3://arty-gerbil-test
+s3cmd mb --bucket-location=EU s3://arty-gerbil-test
