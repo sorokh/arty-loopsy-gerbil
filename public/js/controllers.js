@@ -20,7 +20,7 @@ function MembersController($scope, innergerbil) {
   innergerbil.getListResourcePaged("http://localhost:5000/parties", {
     //communities: communities.join(),
     type: 'person',
-    orderby: 'firstname,lastname',
+    //orderby: 'firstname,lastname',
     descending: false
   }).then(function (parties) {
     $scope.members = parties.results;
