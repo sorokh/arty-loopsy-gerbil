@@ -17,7 +17,8 @@ function MembersController($scope, innergerbil) {
   //}
 
   // TODO: client of innergerbil service should not know root URL
-  innergerbil.getListResourcePaged("http://localhost:5000/parties", {
+  //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
+  innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/parties", {
     //communities: communities.join(),
     type: 'person',
     //orderby: 'firstname,lastname',
