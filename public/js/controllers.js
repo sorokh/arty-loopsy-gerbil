@@ -7,6 +7,9 @@ angular
     .controller('MembersController', MembersController)
 
 function MembersController($scope, innergerbil) {
+  // TODO: client of innergerbil service should not know root URL
+  // TODO: use "me" as party in call to forDescendantsOfParties
+
   //var communities = [];
   //communities.push($scope.me.community.href);
   //var ils = $scope.me.$$interletssettings;
@@ -16,7 +19,6 @@ function MembersController($scope, innergerbil) {
   //  }
   //}
 
-  // TODO: client of innergerbil service should not know root URL
   //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
   innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/parties", {
     //communities: communities.join(),
@@ -25,6 +27,15 @@ function MembersController($scope, innergerbil) {
     descending: false
   }).then(function (parties) {
     $scope.members = parties.results;
+  }).then(function () { // TODO: do second call in parallel
+    innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/contactdetails?forParties=5df52f9f-e51f-4942-a810-1496c51e64db", { // + $scope.members[0].key, {
+      //communities: communities.join(),
+      //type: 'person',
+      //orderby: 'firstname,lastname',
+      //descending: false
+    }).then(function (partiesContactDetails) {
+      $scope.membersContactDetails = partiesContactDetails.results;
+    });
   });
 
   //$scope.members = innergerbilDummy.getDummyData();
