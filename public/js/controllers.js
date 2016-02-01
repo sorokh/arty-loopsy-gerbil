@@ -6,42 +6,71 @@ angular
     .controller('MainController', MainController)
     .controller('MembersController', MembersController)
 
-function MembersController($scope, innergerbil) {
+function addContactDetailsToParties(parties, contactdetails) {
+  'use strict';
+  var permalinkToParty = {};
+
+  parties.forEach(function (party) {
+    permalinkToParty[party.$$meta.permalink] = party;
+  });
+
+  contactdetails.forEach(function (contactdetail) {
+    contactdetail.$$parties.forEach(function (party) {
+      if (!permalinkToParty[party.href].$$contactdetails) {
+        permalinkToParty[party.href].$$contactdetails = [];
+      }
+      permalinkToParty[party.href].$$contactdetails.push(contactdetail);
+    });
+  });
+}
+
+function splitContactDetails(parties) {
+  'use strict';
+  parties.forEach(function (party) {
+    if (party.$$contactdetails) {
+      party.$$contactdetails.forEach(function (detail) {
+        if (detail.type === 'address') {
+          if (!party.$$addresses) {
+            party.$$addresses = [];
+          }
+          party.$$addresses.push(detail);
+        } else if (detail.type === 'email') {
+          if (!party.$$emails) {
+            party.$$emails = [];
+          }
+          party.$$emails.push(detail);
+        }
+      });
+    }
+  });
+}
+
+function MembersController($scope, innergerbil, $q) {
+  var partyContactDetails;
+  var promises = [];
+  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
+  var baseUrl = 'https://inner-gerbil-test.herokuapp.com';
   // TODO: client of innergerbil service should not know root URL
   // TODO: use "me" as party in call to forDescendantsOfParties
 
-  //var communities = [];
-  //communities.push($scope.me.community.href);
-  //var ils = $scope.me.$$interletssettings;
-  //for (var i = 0; i < ils.length; i++) {
-  //  if (ils[i].active) {
-  //    communities.push(ils[i].interletsapproval.$$expanded.approved.href);
-  //  }
-  //}
-
   //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
-  innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/parties", {
-    //communities: communities.join(),
-    type: 'person',
-    //orderby: 'firstname,lastname',
-    descending: false
-  }).then(function (parties) {
-    $scope.members = parties.results;
-  }).then(function () { // TODO: do second call in parallel
-    innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/contactdetails?forParties=/parties/5df52f9f-e51f-4942-a810-1496c51e64db", { // + $scope.members[0].permalink, {
-      //communities: communities.join(),
-      //type: 'person',
-      //orderby: 'firstname,lastname',
-      //descending: false
-    }).then(function (partiesContactDetails) {
-      var permalink = $scope.members[0].permalink;
-      $scope.membersContactDetails = partiesContactDetails.results;
-    });
+  promises.push(innergerbil.getListResourcePaged('https://inner-gerbil-test.herokuapp.com/parties', {
+    descendantsOfParties: groupParty,
+    type: 'person'
+  }));
+  promises.push(innergerbil.getListResourcePaged('https://inner-gerbil-test.herokuapp.com/contactdetails', {
+    forDescendantsOfParties: groupParty,
+    public: true
+  }));
+
+  $q.all(promises).then(function (results) {
+    $scope.members = results[0].results;
+    partyContactDetails = results[1].results;
+    addContactDetailsToParties($scope.members, partyContactDetails);
+    splitContactDetails($scope.members);
+    console.log($scope.members); // eslint-disable-line
   });
-
-  //$scope.members = innergerbilDummy.getDummyData();
-
-};
+}
 
 //TODO : move to seperate file/project
 angular.module('inspinia').factory('innergerbilDummy', [function () {

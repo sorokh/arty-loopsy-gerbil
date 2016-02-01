@@ -23,8 +23,8 @@
                 <h3><strong>{{member.name}}</strong></h3>
 
                 <address>
-                    Kakemanstraat 64<br>
-                    9280 Lebbeke<br>
+                    {{member.$$addresses[0].street}} {{member.$$addresses[0].streetnumber}}<br>
+                    {{member.$$addresses[0].postalcode}} {{member.$$addresses[0].city}}<br>
                     <abbr title="Phone">GSM:</abbr> 0495 99 77 22<br>
                     Saldo : 100
                 </address>
