@@ -28,12 +28,13 @@ function MembersController($scope, innergerbil) {
   }).then(function (parties) {
     $scope.members = parties.results;
   }).then(function () { // TODO: do second call in parallel
-    innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/contactdetails?forParties=5df52f9f-e51f-4942-a810-1496c51e64db", { // + $scope.members[0].key, {
+    innergerbil.getListResourcePaged("http://inner-gerbil-test.herokuapp.com/contactdetails?forParties=/parties/5df52f9f-e51f-4942-a810-1496c51e64db", { // + $scope.members[0].permalink, {
       //communities: communities.join(),
       //type: 'person',
       //orderby: 'firstname,lastname',
       //descending: false
     }).then(function (partiesContactDetails) {
+      var permalink = $scope.members[0].permalink;
       $scope.membersContactDetails = partiesContactDetails.results;
     });
   });
