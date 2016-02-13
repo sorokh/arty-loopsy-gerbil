@@ -28,9 +28,9 @@
                           <!--<tr ng-repeat="txn in c.transactions">-->
                           <tr ng-repeat="txn in transactions">
                             <td>{{txn.timestamp | date:'MM/dd/yyyy H:mm'}}</td>
-                            <td>{{txn.from}}</td>
+                            <td>{{txn.from.name}}</td>
                             <td>aan</td>
-                            <td>{{txn.to}}</td>
+                            <td>{{txn.to.name}}</td>
                             <td>{{txn.description}}</td>
                             <td></td>
                             <td class="text-right">{{txn.amount}}</td>

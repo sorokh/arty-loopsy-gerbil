@@ -26,6 +26,20 @@ function addContactDetailsToParties(parties, contactdetails) {
   });
 }
 
+function addPartiesToTransactions(transactions, parties) {
+  'use strict';
+  var permalinkToParty = {};
+
+  parties.forEach(function (party) {
+    permalinkToParty[party.$$meta.permalink] = party;
+  });
+
+  transactions.forEach(function (transaction) {
+    transaction.from = permalinkToParty[transaction.from.href];
+    transaction.to = permalinkToParty[transaction.to.href];
+  });
+}
+
 function splitContactDetails(parties) {
   'use strict';
   parties.forEach(function (party) {
