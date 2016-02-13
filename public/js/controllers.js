@@ -6,6 +6,7 @@ angular
     .controller('MainController', MainController)
     .controller('MembersController', MembersController)
     .controller('ProfileController', ProfileController)
+    .controller('TransactionsController', TransactionsController)
 
 function addContactDetailsToParties(parties, contactdetails) {
   'use strict';

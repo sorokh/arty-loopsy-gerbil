@@ -7,7 +7,7 @@
                         <div class="input-group-addon"><i class="fa fa-search"></i> </div>
                          <input type="text" placeholder="Zoeken op naam, beschrijving, etc.." class="form-control" name="top-search" id="top-search" ng-model="c.search">
                     </div>
-                </div> 
+                </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-primary">Nieuwe waardering</a>
                 </div>
@@ -25,15 +25,16 @@
                 <div class="lets-message">
                     <table class="table table-condensed">
                         <tbody >
-                        <tr ng-repeat="txn in c.transactions">
+                          <!--<tr ng-repeat="txn in c.transactions">-->
+                          <tr ng-repeat="txn in transactions">
                             <td>{{txn.timestamp | date:'MM/dd/yyyy H:mm'}}</td>
                             <td>{{txn.from}}</td>
                             <td>aan</td>
                             <td>{{txn.to}}</td>
-                            <td>{{txn.message}}</td>
+                            <td>{{txn.description}}</td>
                             <td></td>
                             <td class="text-right">{{txn.amount}}</td>
-                        </tr>
+                          </tr>
                         </tbody>
                     </table>
                 </div>

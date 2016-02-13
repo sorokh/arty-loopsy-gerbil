@@ -36,7 +36,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
   })
         .state('lets.transactions', {
             url: '/transactions.html',
-            templateUrl: 'transactions/transactions.html'
+            templateUrl: 'transactions/transactions.html',
+            controller: 'TransactionsController'
         });
 }
 
