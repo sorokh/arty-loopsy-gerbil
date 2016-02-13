@@ -39,6 +39,11 @@ function splitContactDetails(parties) {
             party.$$emails = [];
           }
           party.$$emails.push(detail);
+        } else if (detail.type === 'phone') {
+          if (!party.$$phones) {
+            party.$$phones = [];
+          }
+          party.$$phones.push(detail);
         }
       });
     }
