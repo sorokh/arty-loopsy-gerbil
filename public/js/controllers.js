@@ -5,6 +5,7 @@ angular
     .module('inspinia')
     .controller('MainController', MainController)
     .controller('MembersController', MembersController)
+    .controller('ProfileController', ProfileController)
 
 function addContactDetailsToParties(parties, contactdetails) {
   'use strict';
@@ -90,28 +91,31 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
   };
 
   /* Retrieve a single resource */
-  that.getResource = function (href, params) {
+  that.getResource = function (url, params, cancelPromise) {
     params = params || {};
     var d = $q.defer();
     $http({
       method: "GET",
-      url: href,
+      url: url,
       params: params,
-      cache: true
-    }).success(function (resp) {
-      hrefToResource[resp.$$meta.permalink];
-      d.resolve(resp);
+      withCredentials: true,
+      cache: true,
+      timeout: cancelPromise
+  }).success(function (resp) {
+    //hrefToResource[resp.$$meta.permalink];
+    hrefToResource[resp.permalink];
+    d.resolve(resp);
     }).error(function (error) {
       //if (error.status === 403) {
-      //  $notification.error('Geen Rechten', 'U hebt onvoldoende rechten tot ' + href);
+      //  $notification.error('Geen Rechten', 'U hebt onvoldoende rechten tot ' + url);
       //} else if (error.status === 404) {
-      //  $notification.error('Niet gevonden', href + ' kon niet worden gevonden');
+      //  $notification.error('Niet gevonden', url + ' kon niet worden gevonden');
       //} else if (error.status === 500) {
-      //  $notification.error('Connectie Probleem', 'Er is een interne fout opgetreden op de server van ' + href);
+      //  $notification.error('Connectie Probleem', 'Er is een interne fout opgetreden op de server van ' + url);
       //} else if (error.status === 502 || error.status === 504) {
-      //  $notification.error('Connectie Probleem', 'De server van ' + href + ' is niet beschikbaar.');
+      //  $notification.error('Connectie Probleem', 'De server van ' + url + ' is niet beschikbaar.');
       //} else {
-      //  $notification.error('Connectie Probleem', 'Er is een probleem met de VSKO-services voor ' + href);
+      //  $notification.error('Connectie Probleem', 'Er is een probleem met de VSKO-services voor ' + url);
       //}
       d.reject(error);
     });
