@@ -13,9 +13,9 @@ function MembersController($scope, innergerbil, $q) {
     forDescendantsOfParties: groupParty,
     public: true
   }));
-  promises.push(innergerbil.getListResourcePages($scope.baseUrl + '/partyrelations', {
-
-  }));
+/*  promises.push(innergerbil.getListResourcePages($scope.baseUrl + '/partyrelations', {
+    forDescendantsOfParties: groupParty
+  }));*/
 
   return $q.all(promises).then(function (results) {
     $scope.members = results[0].results;
