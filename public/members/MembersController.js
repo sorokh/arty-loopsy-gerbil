@@ -1,10 +1,9 @@
 function MembersController($scope, innergerbil, $q) {
   var partyContactDetails;
   var promises = [];
-  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
   // TODO: use "me" as party in call to forDescendantsOfParties
+  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
 
-  //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
   promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/parties', {
     descendantsOfParties: groupParty,
     type: 'person'
