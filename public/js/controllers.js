@@ -1,4 +1,24 @@
-function MainController() {
+function MainController($scope, innergerbil, $q) {
+  var partyContactDetails;
+  var promises = [];
+  var baseUrl = 'https://inner-gerbil-test.herokuapp.com';
+  // TODO: client of innergerbil service should not know root URL
+
+  //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
+  promises.push(innergerbil.getResource(baseUrl + '/me', {}));
+  //promises.push(innergerbil.getListResourcePaged(baseUrl + '/contactdetails', {
+  //  forDescendantsOfParties: groupParty,
+  //  public: true
+  //}));
+
+  $scope.baseUrl = baseUrl;
+  return $q.all(promises).then(function (results) {
+    $scope.me = results[0];
+    //partyContactDetails = results[1].results;
+    //addContactDetailsToParties($scope.members, partyContactDetails);
+    //splitContactDetails($scope.members);
+    console.log($scope.me); // eslint-disable-line
+  });
 };
 
 angular
