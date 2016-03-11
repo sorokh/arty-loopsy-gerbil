@@ -23,10 +23,12 @@
                 <h3><strong>{{member.name}}</strong></h3>
 
                 <address>
-                    {{member.$$addresses[0].street}} {{member.$$addresses[0].streetnumber}}<br>
-                    {{member.$$addresses[0].postalcode}} {{member.$$addresses[0].city}}<br>
-                    <abbr title="Email">Email:</abbr> {{member.$$emails[0].value}}<br>
-                    <abbr title="Phone">Phone:</abbr> {{member.$$phones[0].value}}<br>
+                    <span ng-show="member.$$addresses[0]">
+                        {{member.$$addresses[0].street}} {{member.$$addresses[0].streetnumber}}<br>
+                        {{member.$$addresses[0].postalcode}} {{member.$$addresses[0].city}}<br>
+                    </span>
+                    <span ng-show="member.$$emails[0]"><abbr title="Email">Email:</abbr> {{member.$$emails[0].value}}<br></span>
+                    <span ng-show="member.$$phones[0]"><abbr title="Phone">Phone:</abbr> {{member.$$phones[0].value}}<br></span>
                     Saldo : 100
                 </address>
             </div>
