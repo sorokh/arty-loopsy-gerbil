@@ -11,6 +11,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             abstract: true,
             url: "/lets",
             templateUrl: "common/content.html",
+            controller: 'MainController'
         })
         .state('lets.events', {
             url: '/start.html',
