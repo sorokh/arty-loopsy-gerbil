@@ -13,6 +13,7 @@
 
   $q.all(promises).then(function (results) {
     $scope.me = results[0];
+    $scope.baseUrl = baseUrl;
     //partyContactDetails = results[1].results;
     //addContactDetailsToParties($scope.members, partyContactDetails);
     //splitContactDetails($scope.members);

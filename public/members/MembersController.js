@@ -1,4 +1,4 @@
-﻿function MembersController($scope, innergerbil, $q) {
+function MembersController($scope, innergerbil, $q) {
   var partyContactDetails;
   var promises = [];
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
@@ -18,6 +18,7 @@
 
   $q.all(promises).then(function (results) {
     $scope.members = results[0].results;
+    $scope.baseUrl = baseUrl;
     partyContactDetails = results[1].results;
     addContactDetailsToParties($scope.members, partyContactDetails);
     splitContactDetails($scope.members);
