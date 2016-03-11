@@ -1,5 +1,24 @@
+/* Find the balances for the parties, and add them as $$balance to the corresponding party. */
+function addBalancesToParties(parties, partyrelations) {
+  var i, permalink;
+  var fromToPartyrelation = {}
+
+  for(i=0; i<partyrelations.length; i++) {
+    permalink = partyrelations[i].from.href;
+    fromToPartyrelation[permalink] = partyrelations[i];
+  }
+
+  for(i=0; i<parties.length; i++) {
+    permalink = parties[i].$$meta.permalink;
+    if(fromToPartyrelation[permalink]) {
+      parties[i].$$balance = fromToPartyrelation[permalink].balance;
+    }
+  }
+}
+
 function MembersController($scope, innergerbil, $q) {
   var partyContactDetails;
+  var partyrelations;
   var promises = [];
   // TODO: use "me" as party in call to forDescendantsOfParties
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
@@ -12,15 +31,18 @@ function MembersController($scope, innergerbil, $q) {
     forDescendantsOfParties: groupParty,
     public: true
   }));
-/*  promises.push(innergerbil.getListResourcePages($scope.baseUrl + '/partyrelations', {
+  promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/partyrelations', {
     forDescendantsOfParties: groupParty
-  }));*/
+  }));
 
   return $q.all(promises).then(function (results) {
     $scope.members = results[0].results;
     partyContactDetails = results[1].results;
+    partyrelations = results[2].results;
     addContactDetailsToParties($scope.members, partyContactDetails);
+    addBalancesToParties($scope.members, partyrelations);
     splitContactDetails($scope.members);
+    console.log('$scope.members ->');
     console.log($scope.members); // eslint-disable-line
   });
 }
