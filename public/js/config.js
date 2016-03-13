@@ -18,14 +18,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             templateUrl: 'events/events.html',
             controller: 'EventsController'
         })
-        .state('lets.messages', {
-            url: '/messages.html',
-            templateUrl: 'messages/messages.html'
-        })
-        .state('lets.message_detail', {
-            url: '/message_detail.html',
-            templateUrl: 'messages/message_detail.html'
-        })
         .state('lets.members', {
             url: '/members.html',
             templateUrl: 'members/members.html',
