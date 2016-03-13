@@ -33,6 +33,11 @@ function addContactDetailsToParties(parties, contactdetails) {
   'use strict';
   var permalinkToParty = {};
 
+  // Handle single items the same as an array. Convert to singleton array.
+  if(parties && !parties.forEach) {
+    parties = [parties];
+  }
+
   parties.forEach(function (party) {
     permalinkToParty[party.$$meta.permalink] = party;
   });
@@ -63,6 +68,12 @@ function addPartiesToTransactions(transactions, parties) {
 
 function splitContactDetails(parties) {
   'use strict';
+
+  // Handle single items the same as an array. Convert to singleton array.
+  if(parties && !parties.forEach) {
+    parties = [parties];
+  }
+
   parties.forEach(function (party) {
     if (party.$$contactdetails) {
       party.$$contactdetails.forEach(function (detail) {
@@ -85,6 +96,32 @@ function splitContactDetails(parties) {
       });
     }
   });
+}
+
+/* Find the balances for the parties, and add them as $$balance to the corresponding party. */
+function addBalancesOfPartyrelationsToParties(parties, partyrelations, currentgroup) {
+  var i, permalink;
+  var fromToPartyrelation = {};
+  var partyrelation;
+
+  // Handle single items the same as an array. Convert to singleton array.
+  if(parties && !parties.forEach) {
+    parties = [parties];
+  }
+
+  for(i=0; i<partyrelations.length; i++) {
+    permalink = partyrelations[i].from.href;
+    fromToPartyrelation[permalink] = partyrelations[i];
+  }
+
+  for(i=0; i<parties.length; i++) {
+    permalink = parties[i].$$meta.permalink;
+    partyrelation = fromToPartyrelation[permalink];
+    if(partyrelation) {
+      if(parties[i].$$balance) console.error('More than 1 balance in this context ???');
+      parties[i].$$balance = fromToPartyrelation[permalink].balance;
+    }
+  }
 }
 
 //TODO : move to seperate file/project

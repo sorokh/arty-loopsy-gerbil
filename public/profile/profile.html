@@ -8,15 +8,18 @@
         <div class="lets-message">
           <div>
             <div class="text-center">
-              <img alt="image" class="img-circle" src="{{baseUrl}}{{me.$$meta.permalink}}/profile.png" width=240>
+              <img alt="image" class="img-circle" src="{{baseUrl}}{{profile.$$meta.permalink}}/profile.png" width=240>
             </div>
             <div>
-              <h4><strong>{{me.name}}</strong></h4>
+              <h4><strong>{{profile.name}}</strong></h4>
 
               <address>
-                Kleine streepstraat 25<br>
-                9200 Grembergen<br>
-                <abbr title="Phone">Tel:</abbr> 052 77 88 33<br>
+                <span ng-show="profile.$$addresses[0]">
+                    {{profile.$$addresses[0].street}} {{profile.$$addresses[0].streetnumber}}<br>
+                    {{profile.$$addresses[0].postalcode}} {{profile.$$addresses[0].city}}<br>
+                </span>
+                <span ng-show="profile.$$emails[0]"><abbr title="Email">Email:</abbr> {{profile.$$emails[0].value}}<br></span>
+                <span ng-show="profile.$$phones[0]"><abbr title="Phone">Phone:</abbr> {{profile.$$phones[0].value}}<br></span>
               </address>
 
               <h5>Hobby's</h5>
@@ -29,10 +32,10 @@
 
               <div class="row m-t-lg">
                 <div class="col-md-6">
-                  <h5><i class="fa fa-thumbs-up"></i><strong> 169</strong> Transacties</h5>
+                  <h5><i class="fa fa-thumbs-up"></i><strong> x</strong> Transacties</h5>
                 </div>
                 <div class="col-md-6">
-                  <h5><strong>45</strong> Duimkes</h5>
+                  <h5><strong>{{profile.$$balance}}</strong> Duimkes</h5>
                 </div>
               </div>
               <div class="row">

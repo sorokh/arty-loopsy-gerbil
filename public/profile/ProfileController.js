@@ -1,4 +1,28 @@
 function ProfileController($scope, innergerbil, $q, $stateParams) {
-  $scope.key = $stateParams.key;
   'use strict';
+  var promises = [];
+  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
+
+  $scope.key = $stateParams.key;
+
+  promises.push(innergerbil.getResource($scope.baseUrl + '/parties/' + $scope.key, {}));
+  promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/contactdetails', {
+    forParties: '/parties/' + $scope.key
+  }));
+  promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/partyrelations', {
+    from: '/parties/' + $scope.key
+  }));
+
+
+  return $q.all(promises).then(function (results) {
+    $scope.profile = results[0];
+    $scope.contactdetails = results[1].results;
+    $scope.partyrelations = results[2].results;
+    addContactDetailsToParties($scope.profile,$scope.contactdetails);
+    splitContactDetails($scope.profile);
+    addBalancesOfPartyrelationsToParties($scope.profile, $scope.partyrelations, groupParty)
+
+    console.log('$scope.profile ->');
+    console.log($scope.profile); // eslint-disable-line
+  });
 }
