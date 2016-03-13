@@ -27,6 +27,7 @@ angular
     .controller('MembersController', MembersController)
     .controller('ProfileController', ProfileController)
     .controller('TransactionsController', TransactionsController)
+    .controller('EventsController', EventsController);
 
 function addContactDetailsToParties(parties, contactdetails) {
   'use strict';

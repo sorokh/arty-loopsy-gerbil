@@ -15,7 +15,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
         .state('lets.events', {
             url: '/start.html',
-            templateUrl: 'events/events.html'
+            templateUrl: 'events/events.html',
+            controller: 'EventsController'
         })
         .state('lets.messages', {
             url: '/messages.html',
@@ -34,7 +35,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             url: '/profile.html',
             templateUrl: 'profile/profile.html',
             controller: 'ProfileController'
-  })
+         })
         .state('lets.transactions', {
             url: '/transactions.html',
             templateUrl: 'transactions/transactions.html',

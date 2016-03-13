@@ -1,4 +1,4 @@
-<div ng-controller="EventsController as c">
+<div>
     <div class="wrapper wrapper-content animated fadeInRight">
     <!--              -->
     <!-- Classic view -->
@@ -10,33 +10,33 @@
                 <div class="col-md-8">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-search"></i> </div>
-                         <input type="text" placeholder="Zoeken op sleutelwoord, tag, naam plaatser, etc.." class="form-control" name="top-search" id="top-search" ng-model="c.search">
+                         <input type="text" placeholder="Zoeken op sleutelwoord, tag, naam plaatser, etc.." class="form-control" name="top-search" id="top-search" ng-model="search">
                     </div>
-                </div> 
+                </div>
                 <div class="col-md-4">
                     <div class="btn-group">
-                        <label class="btn btn-primary" ng-model="c.distance" btn-radio="2" title="max. 2 km"><i class="fa fa-male"></i></label>
-                        <label class="btn btn-primary" ng-model="c.distance" btn-radio="8" title="max. 8 km"><i class="fa fa-bicycle"></i></label>
-                        <label class="btn btn-primary" ng-model="c.distance" btn-radio="16" title="max. 16 km"><i class="fa fa-car"></i></label>
-                        <label class="btn btn-primary" ng-model="c.distance" btn-radio="50000" title="Geen beperking op afstand">Alles</i></label>
+                        <label class="btn btn-primary" ng-model="distance" btn-radio="2" title="max. 2 km"><i class="fa fa-male"></i></label>
+                        <label class="btn btn-primary" ng-model="distance" btn-radio="8" title="max. 8 km"><i class="fa fa-bicycle"></i></label>
+                        <label class="btn btn-primary" ng-model="distance" btn-radio="16" title="max. 16 km"><i class="fa fa-car"></i></label>
+                        <label class="btn btn-primary" ng-model="distance" btn-radio="50000" title="Geen beperking op afstand">Alles</i></label>
 
                     </div>
-                    
+
                     <div class="btn-group">
-                        <label class="btn btn-primary" ng-model="c.groups" btn-radio="'local'" title="LETS Regio Dendermonde (Alle groepen waar je lid bent)"><i class="fa fa-group"></i></label>
-                        <label class="btn btn-primary" ng-model="c.groups" btn-radio="'global'" title="LETS Vlaanderen"><i class="fa fa-globe"></i></label>
+                        <label class="btn btn-primary" ng-model="groups" btn-radio="'local'" title="LETS Regio Dendermonde (Alle groepen waar je lid bent)"><i class="fa fa-group"></i></label>
+                        <label class="btn btn-primary" ng-model="groups" btn-radio="'global'" title="LETS Vlaanderen"><i class="fa fa-globe"></i></label>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="row" ng-show="c.classic">
+
+        <div class="row" ng-show="classic">
             <div class="col-lg-8">
                 <!--
                 <div>
                     <i class="fa fa-cogs"></i>
-                    <a ng-click="c.classic = !c.classic" ng-hide="c.classic"> Klassiek</a>
-                    <a ng-click="c.classic = !c.classic" ng-show="c.classic"> Gebeurtenissen</a>
+                    <a ng-click="classic = !classic" ng-hide="classic"> Klassiek</a>
+                    <a ng-click="classic = !classic" ng-show="classic"> Gebeurtenissen</a>
                 </div>
                 -->
                 <br>
@@ -45,10 +45,10 @@
                     <form role="form" class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="c.newbody"></textarea>
+                                <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="newbody"></textarea>
                             </div>
                         </div>
-                        <div ng-show="c.newbody.length > 0">
+                        <div ng-show="newbody.length > 0">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Titel</label>
                                 <div class="col-sm-9"><input type="text" class="form-control"></div>
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Goed / Dienst</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" ng-model="c.goodorservice">
+                                    <select class="form-control" ng-model="goodorservice">
                                         <option value="good">Goed</option>
                                         <option value="service">Dienst</option>
                                     </select>
@@ -66,34 +66,34 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Aanbod / Vraag</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" ng-model="c.offerorrequest">
+                                    <select class="form-control" ng-model="offerorrequest">
                                         <option value="offer">Aanbod</option>
                                         <option value="request">Vraag</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group" ng-show="c.goodorservice == 'service'">
+                            <div class="form-group" ng-show="goodorservice == 'service'">
                                 <label class="col-sm-3 control-label">Evenement ?</label>
                                 <div class="col-sm-1">
-                                    <div class="checkbox"><label><input type="checkbox" ng-model="c.newevent"> </label></div>
+                                    <div class="checkbox"><label><input type="checkbox" ng-model="newevent"> </label></div>
                                 </div>
-                                <div class="col-sm-6 col-sm-offset-2" ng-show="c.newevent">
-                                    <datepicker ng-model="c.eventdate" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+                                <div class="col-sm-6 col-sm-offset-2" ng-show="newevent">
+                                    <datepicker ng-model="eventdate" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
                                 </div>
                             </div>
-                            <div class="form-group" ng-show="c.goodorservice == 'good'">
+                            <div class="form-group" ng-show="goodorservice == 'good'">
                                 <label class="col-sm-3 control-label">Uitlenen ?</label>
                                 <div class="col-sm-1">
-                                    <div class="checkbox"><label><input type="checkbox" ng-model="c.loan"> </label></div>
+                                    <div class="checkbox"><label><input type="checkbox" ng-model="loan"> </label></div>
                                 </div>
                             </div>
-                                
+
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tags</label>
                                 <div class="col-sm-9">
-                                    <ui-select multiple ng-model="c.multipleDemo.colors" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+                                    <ui-select multiple ng-model="multipleDemo.colors" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
                                         <ui-select-match placeholder="Voeg categorieën toe...">{{$item}}</ui-select-match>
-                                        <ui-select-choices repeat="color in c.availableColors | filter:$select.search">
+                                        <ui-select-choices repeat="color in availableColors | filter:$select.search">
                                               {{color}}
                                         </ui-select-choices>
                                     </ui-select>
@@ -101,21 +101,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-offset-8 col-sm-4">
-                                    <a class="btn btn-primary" type="submit" ng-click="c.newbody = ''">Plaatsen</a>
-                                    <a class="btn btn-primary" type="submit" ng-click="c.newbody = ''">Annuleren</a>    
+                                    <a class="btn btn-primary" type="submit" ng-click="newbody = ''">Plaatsen</a>
+                                    <a class="btn btn-primary" type="submit" ng-click="newbody = ''">Annuleren</a>
                                 </div>
                             </div>
                         </div><!-- show if body filled in -->
                     </form>
                 </div>
                 <!-- new message form -->
-            
+
                 <br>
-            
+
                 <div class="lets-message-title">
                     <h3>Vraag</h3>
                 </div>
-                <div ng-repeat="event in c.events | filter:c.search">                
+                <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.type === 'message' && event.demand">
                         <div class="lets-message" ng-hide="event.$read">
                             <a ui-sref="lets.profile">
@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div ng-show="event.$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}. 
+                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}.
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Sturen</a>
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Annuleren</a>
                                     </div>
@@ -157,13 +157,13 @@
                         </div>
                     </div>
                 </div> <!-- ng-repeat type: message demand -->
-            
+
                 <br>
-            
+
                 <div class="lets-message-title">
                     <h3>Aanbod</h3>
                 </div>
-                <div ng-repeat="event in c.events | filter:c.search">                
+                <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.type === 'message' && event.offer">
                         <div class="lets-message" ng-hide="event.$read">
                             <a ui-sref="lets.profile">
@@ -190,7 +190,7 @@
                                         </div>
                                     </div>
                                     <div ng-show="event.$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}. 
+                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}.
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Sturen</a>
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Annuleren</a>
                                     </div>
@@ -208,7 +208,7 @@
 
             </div>
             <div class="col-lg-4">
-                <div ng-repeat="event in c.events">
+                <div ng-repeat="event in events">
                     <div ng-show="event.type == 'person'">
                         <div class="widget-head-color-box navy-bg p-lg text-center">
                             <div class="m-b-md">
@@ -232,18 +232,18 @@
                     </div>
                 </div> <!-- repeat type: persons -->
 
-                <div ng-repeat="event in c.events">
+                <div ng-repeat="event in events">
                     <div ng-show="event.type == 'event'">
                         <div class="widget lazur-bg">
                             <h2><em>{{event.date}}</em> : {{event.title}}</h2>
                             <p>{{event.message}}</p>
                             <div><img class="img-circle" src="img/a7.jpg" width="30" style="margin-right: 8px">{{event.person}}</div>
                             <div><a>Inschrijven</a></div>
-                        </div> 
+                        </div>
                     </div> <!-- type: event -->
                 </div> <!-- repeat type: persons -->
 
-                <div ng-repeat="txn in c.transactions">
+                <div ng-repeat="txn in transactions">
                     <div ng-show="txn.to === 'Nathalie Gols'">
                         <div class="widget lazur-bg" ui-sref="app.transactions" style="cursor: pointer;">
                             <span class="fa fa-thumbs-up m-r-xs"> {{txn.amount}} duimkes van {{txn.from}} ({{txn.message}})</span>
@@ -280,20 +280,20 @@
 <!-- Events stream -->
 <!--               -->
 
-        <div class="row" ng-hide="c.classic">
+        <div class="row" ng-hide="classic">
             <div class="col-lg-9">
                 <div>
                     <i class="fa fa-cogs"></i>
-                    <a ng-click="c.classic = !c.classic" ng-hide="c.classic"> Klassiek</a>
-                    <a ng-click="c.classic = !c.classic" ng-show="c.classic"> Gebeurtenissen</a>
+                    <a ng-click="classic = !classic" ng-hide="classic"> Klassiek</a>
+                    <a ng-click="classic = !classic" ng-show="classic"> Gebeurtenissen</a>
                 </div>
-                
+
                 <div class="lets-message">
                     <form role="form">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="c.newbody"></textarea>
+                            <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="newbody"></textarea>
                         </div>
-                        <div ng-show="c.newbody.length > 0">
+                        <div ng-show="newbody.length > 0">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Titel</label>
                                 <div class="col-sm-10"><input type="text" class="form-control"></div>
@@ -313,14 +313,14 @@
                             <hr/>
                             <div class="row">
                                 <div class="col-sm-offset-2 col-sm-10" style="padding-top: 10px; padding-bottom: 10px; padding-left: 25px;">
-                                    <a class="btn btn-xs btn-primary" type="submit" ng-click="c.newbody = ''">Plaatsen</a>
+                                    <a class="btn btn-xs btn-primary" type="submit" ng-click="newbody = ''">Plaatsen</a>
                                 </div>
                             </div>
                         </div><!-- show if body filled in -->
                     </form>
                 </div>
 
-                <div ng-repeat="event in c.events">
+                <div ng-repeat="event in events">
                     <div ng-show="event.type === 'message'">
                         <div class="lets-message">
                             <img alt="image" class="img-circle pull-left" ng-src="{{event.img}}" width="40" style="margin-right: 8px">
@@ -345,7 +345,7 @@
                                     </div>
                                     <div ng-show="event.$enteringTransaction">
                                         <small>
-                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}. 
+                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.person}}.
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Sturen</a>
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Annuleren</a>
                                         </small>
@@ -410,7 +410,7 @@
                             <p>{{event.message}}</p>
                             <div><img class="img-circle" src="img/a7.jpg" width="30" style="margin-right: 8px">{{event.person}}</div>
                             <div><a>Inschrijven</a></div>
-                        </div> 
+                        </div>
                     </div> <!-- type: event -->
                 </div>
                 <!-- ng-repeat -->

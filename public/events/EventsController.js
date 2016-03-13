@@ -1,12 +1,12 @@
-function EventsController() {
-    this.classic = true;
-    
-    this.keywords='';
-    this.distance=8;
-    this.groups='local';
-    this.search='';
-    
-    this.events = [
+function EventsController($scope, innergerbil, $q) {
+    $scope.classic = true;
+
+    $scope.keywords='';
+    $scope.distance=8;
+    $scope.groups='local';
+    $scope.search='';
+
+    $scope.events = [
         {
             type: "message",
             person: "Sabine De Vlaming",
@@ -90,8 +90,8 @@ function EventsController() {
             message: "Ik heb, zoals elk voorjaar, een overproductie aan zelfgekweekte bio-asperges. Wie wil er een bussel ? Ik kan ze komen brengen (per fietd). 5 duimkes / bussel.",
         },
     ];
-    
-    this.transactions = [
+
+    $scope.transactions = [
         {
             from: "Steve Buytinck",
             to: "Nathalie Gols",
@@ -121,12 +121,12 @@ function EventsController() {
             timestamp: "2015-03-04T11:34:01"
         }
     ];
-    
-    this.availableColors = ['Eten en Drinken','Artisanaal','Gezondheid en Verzorging','Herstellingen','Huishouden','Klussen','Tuin','Vervoer','Hergebruik'];
-    this.multipleDemo = {};
-    this.multipleDemo.colors = [];
-    this.request = false;
-    this.update = function() {
+
+    $scope.availableColors = ['Eten en Drinken','Artisanaal','Gezondheid en Verzorging','Herstellingen','Huishouden','Klussen','Tuin','Vervoer','Hergebruik'];
+    $scope.multipleDemo = {};
+    $scope.multipleDemo.colors = [];
+    $scope.request = false;
+    $scope.update = function() {
         sync = function(array, item,shouldBePresent) {
             if(shouldBePresent) {
                 if(array.indexOf(item) == -1) {
@@ -138,11 +138,11 @@ function EventsController() {
                     array.splice(index,1);
                 }
             }
-            
+
         }
-        sync(this.multipleDemo.colors, "Vraag",this.request);
-        sync(this.multipleDemo.colors,"Aanbod",this.offer);        
-    };    
+        sync($scope.multipleDemo.colors, "Vraag",$scope.request);
+        sync($scope.multipleDemo.colors,"Aanbod",$scope.offer);
+    };
 };
 
 angular
