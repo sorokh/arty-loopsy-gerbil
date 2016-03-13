@@ -4,14 +4,14 @@
         <div class="col-md-12">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i> </div>
-                 <input type="text" placeholder="Zoeken op naam, adres, telefoon, etc.." class="form-control" name="top-search" id="top-search" ng-model="c.search">
+                 <input type="text" placeholder="Zoeken op naam, adres, telefoon, etc.." class="form-control" name="top-search" id="top-search" ng-model="search">
             </div>
         </div>
     </div>
 </div>
 <br>
 <div class="row">
-<div ng-repeat="member in members" class="col-lg-4">
+<div ng-repeat="member in members | filter:search" class="col-lg-4">
     <div class="contact-box">
         <a ui-sref="lets.profile">
             <div class="col-sm-4">
