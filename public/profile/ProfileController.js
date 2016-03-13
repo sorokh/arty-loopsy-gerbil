@@ -1,3 +1,4 @@
-function ProfileController($scope, innergerbil, $q) {
+function ProfileController($scope, innergerbil, $q, $stateParams) {
+  $scope.key = $stateParams.key;
   'use strict';
 }

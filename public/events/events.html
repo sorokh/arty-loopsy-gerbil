@@ -118,13 +118,13 @@
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.$$demand">
                         <div class="lets-message" ng-hide="event.$read">
-                            <a ui-sref="lets.profile">
+                            <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
                                 <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
                             </a>
 
                             <div class="media-body ">
                                 <small class="pull-right text-navy">1 minuut geleden</small>
-                                <a ui-sref="lets.profile"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
+                                <a ui-sref="lets.profile({key: event.author.$$expanded.key})"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
                             </div>
 
                             <div class="lets-message-responses">
@@ -166,13 +166,13 @@
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.$$offer">
                         <div class="lets-message" ng-hide="event.$read">
-                            <a ui-sref="lets.profile">
+                            <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
                                 <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
                             </a>
 
                             <div class="media-body ">
                                 <small class="pull-right text-navy">1 minuut geleden</small>
-                                <a ui-sref="lets.profile"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
+                                <a ui-sref="lets.profile({key: event.author.$$expanded.key})"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
                             </div>
 
                             <div class="lets-message-responses">
