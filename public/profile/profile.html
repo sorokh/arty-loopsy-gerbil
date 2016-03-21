@@ -1,4 +1,4 @@
-<div ng-controller="EventsController as c">
+<div>
   <div class="wrapper wrapper-content">
     <div class="row animated fadeInRight">
       <div class="col-md-4">
@@ -32,7 +32,7 @@
 
               <div class="row m-t-lg">
                 <div class="col-md-6">
-                  <h5><i class="fa fa-thumbs-up"></i><strong> x</strong> Transacties</h5>
+                  <h5><i class="fa fa-thumbs-up"></i><strong> {{transactions.length}}</strong> Transacties</h5>
                 </div>
                 <div class="col-md-6">
                   <h5><strong>{{profile.$$balance}}</strong> Duimkes</h5>
@@ -100,11 +100,11 @@
         </div>
         <div class="lets-message">
           <table class="table table-condensed">
-            <tr ng-repeat="txn in c.transactions" ng-hide="txn.from != 'Nathalie Gols' && txn.to != 'Nathalie Gols'">
-              <td>{{txn.from}}</td>
+            <tr ng-repeat="txn in transactions">
+              <td>{{txn.from.$$expanded.name}}</td>
               <td>aan</td>
-              <td>{{txn.to}}</td>
-              <td>{{txn.message}}</td>
+              <td>{{txn.to.$$expanded.name}}</td>
+              <td>{{txn.description}}</td>
               <td class="text-right">{{txn.amount}}</td>
             </tr>
           </table>
