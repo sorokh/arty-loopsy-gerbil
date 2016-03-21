@@ -24,7 +24,5 @@ function MembersController($scope, innergerbil, $q) {
     addContactDetailsToParties($scope.members, partyContactDetails);
     addBalancesOfPartyrelationsToParties($scope.members, partyrelations, groupParty);
     splitContactDetails($scope.members);
-    console.log('$scope.members ->');
-    console.log($scope.members); // eslint-disable-line
   });
 }
