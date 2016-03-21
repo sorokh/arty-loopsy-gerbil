@@ -16,19 +16,23 @@ function ProfileController($scope, innergerbil, $q, $stateParams) {
     involvingParties: '/parties/' + $scope.key,
     expand: 'results.from,results.to'
   }));
-
+  promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
+    postedByParties: '/parties/' + $scope.key,
+    expand: 'results.author'
+  }));
 
   return $q.all(promises).then(function (results) {
     $scope.profile = results[0];
     $scope.contactdetails = results[1].results;
     $scope.partyrelations = results[2].results;
     $scope.transactions = results[3].results;
+    $scope.messages = results[4].results;
     addContactDetailsToParties($scope.profile,$scope.contactdetails);
     splitContactDetails($scope.profile);
     addBalancesOfPartyrelationsToParties($scope.profile, $scope.partyrelations, groupParty)
 //    console.log('$scope.profile ->');
 //    console.log($scope.profile); // eslint-disable-line
-console.info('$scope.transactions');
-console.info($scope.transactions);
+console.info('$scope.messages');
+console.info($scope.messages);
   });
 }

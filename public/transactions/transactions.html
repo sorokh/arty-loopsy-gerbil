@@ -26,7 +26,7 @@
                     <table class="table table-condensed">
                         <tbody >
                           <!--<tr ng-repeat="txn in transactions">-->
-                          <tr ng-repeat="txn in transactions">
+                          <tr ng-repeat="txn in transactions | filter:search">
                             <td>{{txn.$$meta.created | date:'yyyy-MM-dd H:mm:ss'}}</td>
                             <td>{{txn.from.name}}</td>
                             <td>aan</td>
