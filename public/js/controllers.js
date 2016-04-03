@@ -162,6 +162,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     });
     return uuid;
   };
+  that.generateGUID = generateGUID;
 
   /* Retrieve a single resource */
   that.getResource = function (url, params, cancelPromise) {
@@ -292,19 +293,14 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     return d.promise;
   };
 
-  that.createOrUpdateResource = function (type, resource) {
+  that.createOrUpdateResource = function (url, resource) {
     var defer = $q.defer();
-    var url;
-    if (resource.$$meta && resource.$$meta.permalink) {
-      url = resource.$$meta.permalink;
-    } else {
-      url = '/' + type + '/' + generateGUID();
-    }
 
     $http({
       method: 'PUT',
       url: url,
       data: resource,
+      withCredentials: true,
       contentType: 'application/json',
       dataType: 'json'
     }).success(function (data, status) {
@@ -317,8 +313,8 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
 
       defer.resolve(resp);
     }).error(function (error) {
-      cl("createOrUpdateResource failed, rejecting promise.");
-      // TODO : Root error, send to /log + message to the user...
+      console.error("createOrUpdateResource failed, rejecting promise.");
+      console.error(error);
       defer.reject(error);
     });
 
@@ -332,6 +328,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       method: 'PUT',
       url: resource.$$meta.permalink,
       data: resource,
+      withCredentials: true,
       contentType: 'application/json',
       dataType: 'json'
     }).success(function (data, status) {
