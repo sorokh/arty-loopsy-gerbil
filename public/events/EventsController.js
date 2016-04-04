@@ -1,21 +1,7 @@
-function addDemandOrOffer(messages) {
-  var i;
-
-  for(i=0; i<messages.length; i++) {
-    if(messages[i].tags.indexOf('vraag') != -1) {
-      messages[i].$$demand = true;
-    }
-
-    if(messages[i].tags.indexOf('aanbod') != -1) {
-      messages[i].$$offer = true;
-    }
-  }
-}
-
 function EventsController($scope, innergerbil, $q) {
   // TODO: use "me" as party in call to forDescendantsOfParties
-  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
-  var promises = [];
+  var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849'; // LETS Dendermonde
+  var letsLebbeke = '/parties/aca5e15d-9f4c-4c79-b906-f7e868b3abc5';
 
   $scope.classic = true;
 
@@ -23,6 +9,8 @@ function EventsController($scope, innergerbil, $q) {
   $scope.distance = 8;
   $scope.groups = 'local';
   $scope.search = '';
+
+  $scope.events = [];
 
   $scope.availableTags = ['Eten en Drinken', 'Artisanaal', 'Gezondheid en Verzorging', 'Herstellingen', 'Huishouden', 'Klussen', 'Tuin', 'Vervoer', 'Hergebruik'];
   $scope.request = false;
@@ -64,6 +52,24 @@ function EventsController($scope, innergerbil, $q) {
     }
   }
 
+  $scope.reload = function() {
+    var promises = [];
+
+    promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
+      postedInDescendantsOfParties: groupParty,
+      expand: 'results.author',
+      orderBy: 'modified',
+      descending: true
+    }));
+
+    return $q.all(promises).then(function(results) {
+      $scope.events = $scope.events,results[0].results;
+
+      console.log('$scope.events ->');
+      console.log($scope.events); // eslint-disable-line
+    });
+  }
+
   $scope.saveMessage = function() {
     var now = new Date();
     var messageuuid = innergerbil.generateGUID();
@@ -89,7 +95,7 @@ function EventsController($scope, innergerbil, $q) {
 
     messageparty = {
       message: { href: messageurl },
-      party: { href: groupParty },
+      party: { href: letsLebbeke },
       key: messagepartyuuid
     };
 
@@ -106,25 +112,13 @@ function EventsController($scope, innergerbil, $q) {
       }
     ];
 
-    console.info('BATCH :');
-    console.info(batch);
     innergerbil.createOrUpdateResource(batchurl, batch).then(function (response) {
       console.info('batch status : ' + response.status);
-      console.info('batch response : ');
-      console.info(response.body);
+      return $scope.reload();
+    }).then(function () {
+      $scope.clearMessage();
+      console.log('message cleared');
     });
-    $scope.clearMessage();
   }
-
-  promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
-    postedInDescendantsOfParties: groupParty,
-    expand: 'results.author'
-  }));
-
-  return $q.all(promises).then(function(results) {
-    $scope.events = results[0].results;
-    addDemandOrOffer($scope.events);
-    console.log('$scope.events ->');
-    console.log($scope.events); // eslint-disable-line
-  });
+  $scope.reload();
 };

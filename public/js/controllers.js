@@ -173,7 +173,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       url: url,
       params: params,
       withCredentials: true,
-      cache: true,
+      cache: false,
       timeout: cancelPromise
   }).success(function (resp) {
     //hrefToResource[resp.$$meta.permalink];
@@ -228,7 +228,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
           method: "GET",
           url: url,
           params: params,
-          cache: true,
+          cache: false,
           timeout: cancelPromise
       }).success(function(resp) {
               var results = [];
@@ -262,7 +262,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       url: url,
       params: params,
       withCredentials: true,
-      cache: true,
+      cache: false,
       timeout: cancelPromise
     }).success(function (resp) {
       getAllFromResults(resp).then(function (allResults) {

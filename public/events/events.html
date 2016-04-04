@@ -116,7 +116,7 @@
                     <h3>Vraag</h3>
                 </div>
                 <div ng-repeat="event in events | filter:search">
-                    <div ng-show="event.$$demand">
+                    <div ng-show="event.tags.indexOf('Vraag') != -1">
                         <div class="lets-message" ng-hide="event.$read">
                             <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
                                 <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
@@ -164,7 +164,7 @@
                     <h3>Aanbod</h3>
                 </div>
                 <div ng-repeat="event in events | filter:search">
-                    <div ng-show="event.$$offer">
+                    <div ng-show="event.tags.indexOf('Aanbod') != -1">
                         <div class="lets-message" ng-hide="event.$read">
                             <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
                                 <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
