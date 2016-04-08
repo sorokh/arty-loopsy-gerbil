@@ -293,12 +293,12 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     return d.promise;
   };
 
-  that.createOrUpdateResource = function (url, resource) {
+  that.createOrUpdateResource = function (baseUrl, resource) {
     var defer = $q.defer();
 
     $http({
       method: 'PUT',
-      url: url,
+      url: baseUrl + resource.$$meta.permalink,
       data: resource,
       withCredentials: true,
       contentType: 'application/json',
@@ -309,7 +309,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       };
 
       // Remove from expand cache.
-      delete hrefToResource[url];
+      delete hrefToResource[resource.$$meta.permalink];
 
       defer.resolve(resp);
     }).error(function (error) {
@@ -321,12 +321,12 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     return defer.promise;
   };
 
-  that.updateResource = function (resource) {
+  that.updateResource = function (baseUrl, resource) {
     var defer = $q.defer();
 
     $http({
       method: 'PUT',
-      url: resource.$$meta.permalink,
+      url: baseUrl + resource.$$meta.permalink,
       data: resource,
       withCredentials: true,
       contentType: 'application/json',
@@ -347,15 +347,16 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     return defer.promise;
   };
 
-  that.deleteResource = function (resource) {
+  that.deleteResource = function (baseUrl, resource) {
     var defer = $q.defer();
 
     $http({
       method: 'DELETE',
-      url: resource.$$meta.permalink
+      url: baseUrl + resource.$$meta.permalink,
+      withCredentials: true
     }).success(function (data, status) {
       var resp = {
-        status: status
+        statusCode: status
       };
 
       // Remove from expand cache.
@@ -364,7 +365,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       defer.resolve(resp);
     }).error(function (resp) {
       var resp = {
-        status: status
+        statusCode: status
       };
       defer.reject(resp);
     });
@@ -372,13 +373,14 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
     return defer.promise;
   };
 
-  that.batch = function (batch) {
+  that.batch = function (baseUrl, batch) {
     var defer = $q.defer();
 
     $http({
       method: 'PUT',
-      url: '/batch',
+      url: baseUrl + '/batch',
       data: batch,
+      withCredentials: true,
       contentType: 'application/json',
       dataType: 'json'
     }).success(function (data, status) {

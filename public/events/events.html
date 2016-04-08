@@ -134,23 +134,24 @@
                                         <img class="img-circle" src="img/profile_small.jpg" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.person}}</i> : {{response.message}}
                                     </div>
 
-                                    <div ng-show="event.$enteringResponse" class="text-right">
+                                    <div ng-show="event.$$enteringResponse" class="text-right">
                                         <textarea class="form-control" placeholder="Geef je reactie in..."></textarea>
                                         <div style="margin-top: 4px">
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Sturen</a>
                                             <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Annuleren</a>
                                         </div>
                                     </div>
-                                    <div ng-show="event.$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.author.$$expanded.name}}.
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Annuleren</a>
+                                    <div ng-show="event.$$enteringTransaction" class="text-right">
+                                            Ik stuur <input type="number" size="3" ng-model="event.$$newTransactionAmount"></input> punt(en) naar {{event.author.$$expanded.name}}.
+                                            <a class="btn btn-primary btn-xs" ng-click="createTransaction(event)">Sturen</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringTransaction = false">Annuleren</a>
                                     </div>
                                     <div style="padding-top: 5px"></div>
                                     <div class="text-right">
-                                        <a ng-click="event.$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
-                                        <a ng-click="event.$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
-                                        <a ng-click="event.$enteringTransaction = true; event.$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
+                                        <a ng-click="event.$$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
+                                        <a ng-click="event.$$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
+                                        <a ng-show="event.author.href != me.$$meta.permalink" ng-click="event.$$enteringTransaction = true; event.$$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
+                                        <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="setCurrentEvent(event)" data-toggle="modal" data-target="#deleteMessageModal"><i class="fa fa-trash" title="Verwijderen"></i></a>
                                     </div>
                                 </small>
                             </div>
@@ -182,23 +183,24 @@
                                         <img class="img-circle" src="img/profile_small.jpg" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.author.$$expanded.name}}</i> : {{response.description}}
                                     </div>
 
-                                    <div ng-show="event.$enteringResponse" class="text-right">
+                                    <div ng-show="event.$$enteringResponse" class="text-right">
                                         <textarea class="form-control" placeholder="Geef je reactie in..."></textarea>
                                         <div style="margin-top: 4px">
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Annuleren</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Sturen</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Annuleren</a>
                                         </div>
                                     </div>
-                                    <div ng-show="event.$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="text" size="3"></text> duimkes naar {{event.author.$$expanded.name}}.
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringTransaction = false">Annuleren</a>
+                                    <div ng-show="event.$$enteringTransaction" class="text-right">
+                                            Ik stuur <input type="number" size="3" ng-model="event.$$newTransactionAmount"></input> punt(en) naar {{event.author.$$expanded.name}}.
+                                            <a class="btn btn-primary btn-xs" ng-click="createTransaction(event)">Sturen</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringTransaction = false">Annuleren</a>
                                     </div>
                                     <div style="padding-top: 5px"></div>
                                     <div class="text-right">
-                                        <a ng-click="event.$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
-                                        <a ng-click="event.$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
-                                        <a ng-click="event.$enteringTransaction = true; event.$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
+                                        <a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
+                                        <a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
+                                        <a ng-show="event.author.href != me.$$meta.permalink" ng-click="event.$$enteringTransaction = true; event.$$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
+                                        <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="setCurrentEvent(event)" data-toggle="modal" data-target="#deleteMessageModal"><i class="fa fa-trash" title="Verwijderen"></i></a>
                                     </div>
                                 </small>
                             </div>
@@ -276,4 +278,41 @@
             </div>
         </div>
     </div><!-- animation wrapper -->
+    <!-- Confirmation modal for deletes -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteMessageModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Bericht verwijderen</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bent u zeker dat u het bericht definitief wil verwijderen ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="delete(currentEvent)" data-dismiss="modal">Verwijderen</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+        <!-- Confirmation modal for creating a transaction -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="createTransactionModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Transactie aanmaken</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bent u zeker dat u {{newTransaction.amount}} punten wil waarderen aan {{newTransaction.to.$$expanded.name}} ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="createTransaction(newTransaction)" data-dismiss="modal">Verwijderen</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div><!-- ng-controller -->

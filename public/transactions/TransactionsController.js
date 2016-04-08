@@ -14,6 +14,8 @@ function TransactionsController($scope, innergerbil, $q) {
   //}));
   promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/transactions', {
     fromDescendantsOfParties: groupParty
+//    orderBy: 'modification',
+//    descending: true
   }));
   promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/parties', {
     descendantsOfParties: groupParty,

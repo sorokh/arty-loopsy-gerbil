@@ -10,8 +10,9 @@
         'ui.bootstrap',                 // Ui Bootstrap
         'pascalprecht.translate',       // Angular Translate
         'ngAnimate',
-        'ui.select', 
-        'ngSanitize'
+        'ui.select',
+        'ngSanitize',
+        'toaster'
     ])
 })();
 

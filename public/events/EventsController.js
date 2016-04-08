@@ -1,4 +1,4 @@
-function EventsController($scope, innergerbil, $q) {
+function EventsController($scope, innergerbil, $q, toaster) {
   // TODO: use "me" as party in call to forDescendantsOfParties
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849'; // LETS Dendermonde
   var letsLebbeke = '/parties/aca5e15d-9f4c-4c79-b906-f7e868b3abc5';
@@ -63,11 +63,30 @@ function EventsController($scope, innergerbil, $q) {
     }));
 
     return $q.all(promises).then(function(results) {
-      $scope.events = $scope.events,results[0].results;
-
-      console.log('$scope.events ->');
-      console.log($scope.events); // eslint-disable-line
+      $scope.events = results[0].results;
     });
+  }
+
+  $scope.delete = function(event) {
+    console.info('delete ' + event);
+    return innergerbil.deleteResource($scope.baseUrl, event).then(function(response) {
+      console.info('delete response: ' + response.statusCode);
+      var events = $scope.events;
+      var index = events.indexOf(event);
+      events.splice(index,1);
+      $scope.pop('success','Bericht verwijderd','Je bericht is correct verwijderd.');
+    }).catch(function (response) {
+      console.error("Unable to delete item " + event.$$meta.permalink + ". statusCode: " + response.statusCode);
+    });
+  }
+
+  $scope.pop = function(type, title, text){
+    toaster.pop(type, title, text);
+  }
+
+  $scope.setCurrentEvent = function(event) {
+    $scope.currentEvent = event;
+    console.log("currentEvent :" + $scope.currentEvent);
   }
 
   $scope.saveMessage = function() {
@@ -76,7 +95,6 @@ function EventsController($scope, innergerbil, $q) {
     var messagepartyuuid = innergerbil.generateGUID();
     var messageurl = '/messages/' + messageuuid;
     var messagepartyurl = '/messageparties/' + messagepartyuuid;
-    var batchurl = $scope.baseUrl + '/batch';
     var batch;
     var messageparty;
 
@@ -94,10 +112,17 @@ function EventsController($scope, innergerbil, $q) {
     $scope.newmessage.key = messageuuid;
 
     messageparty = {
+      $$meta: {
+        permalink: messagepartyurl
+      },
       message: { href: messageurl },
       party: { href: letsLebbeke },
       key: messagepartyuuid
     };
+
+    $scope.newmessage.$$meta = {
+      permalink: messageurl
+    }
 
     batch = [
       {
@@ -112,13 +137,42 @@ function EventsController($scope, innergerbil, $q) {
       }
     ];
 
-    innergerbil.createOrUpdateResource(batchurl, batch).then(function (response) {
+    innergerbil.batch($scope.baseUrl, batch).then(function (response) {
       console.info('batch status : ' + response.status);
       return $scope.reload();
     }).then(function () {
       $scope.clearMessage();
-      console.log('message cleared');
+      $scope.pop('success','Bericht aangemaakt !','Je bericht is correct opgeslagen.');
     });
   }
+
+  $scope.createTransaction = function(event) {
+    var transaction;
+    var transactionGuid = innergerbil.generateGUID();
+    var transactionUrl = '/transactions/' + transactionGuid;
+    transaction = {
+      $$meta: {
+        permalink: transactionUrl
+      },
+      key: transactionGuid,
+      from: {
+        href: $scope.me.$$meta.permalink,
+      },
+      to: {
+        href: event.author.href,
+        $$expanded: event.author.$$expanded
+      },
+      amount: event.$$newTransactionAmount
+    };
+
+    return innergerbil.createOrUpdateResource($scope.baseUrl, transaction).then(function (result){
+      console.info('result : ' + result.statusCode);
+      event.$$enteringTransaction = false;
+      $scope.pop('success','Transactie aangemaakt.','Je hebt ' + transaction.amount + ' punt(en) gewaardeerd aan ' + transaction.to.$$expanded.name);
+    }).catch(function (response) {
+      console.error('unable to create transaction ' + response.error);
+    });
+  }
+
   $scope.reload();
 };
