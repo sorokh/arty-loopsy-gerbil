@@ -137,13 +137,33 @@ function arrayToObjectOnPermalink(elements) {
   return ret;
 }
 
-/* Add replies to message. */
-function addRepliesToMessages(messages, replies) {
-  var messagePermalinkToMessage = arrayToObjectOnPermalink(messages);
-  var i, reply;
+/* Converts an array of SRI link ([{ href: ... },...]) into an array of permalinks. */
+function arrayOfPermalinksFromArrayOfSRILinks(sriLinks) {
+  var ret = [];
+  var i;
 
-  for(i=0; i<replies.length; i++) {
-    reply = replies[i];
+  if(sriLinks && sriLinks.length > 0) {
+    for(i=0; i<sriLinks.length; i++) {
+      ret.push(sriLinks[i].href);
+    }
+  }
+
+  return ret;
+}
+
+/* Add replies to message. */
+function addReactionsToMessages(messages, reactions) {
+  var i, message, reaction;
+  var permalinkToReaction = arrayToObjectOnPermalink(reactions);
+
+  for(i=0; i<messages.length; i++) {
+    message = messages[i];
+    if(message.$$reactions && message.$$reactions.length > 0) {
+      for(j=0; j<message.$$reactions.length; j++) {
+        reaction = message.$$reactions[j];
+        reaction.$$expanded = permalinkToReaction[reaction.href];
+      }
+    }
   }
 }
 

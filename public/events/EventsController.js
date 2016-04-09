@@ -59,16 +59,18 @@ function EventsController($scope, innergerbil, $q, toaster) {
       orderBy: 'modified',
       descending: true
     }).then(function (ret) {
-      var roots = [];
-      var i;
-      $scope.events = ret.results;
-      for (i=0; i<ret.results.length; i++) {
-        roots.push(ret.results[i].$$meta.permalink);
+      var reactions = [];
+      var i, message, messages;
+      messages = ret.results;
+      $scope.events = messages;
+      for (i=0; i<messages.length; i++) {
+        message = messages[i];
+        reactions = reactions.concat(arrayOfPermalinksFromArrayOfSRILinks(message.$$reactions));
       }
-      return innergerbil.getPatternBatch($scope.baseUrl + '/messages?descendantsOfMessages=*', roots);
-    }).then(function (ret) {
-      for(i=0; i<ret.length; i++) {
-      }
+      return innergerbil.getPatternBatch($scope.baseUrl + '/messages?expand=results.author&hrefs=*', reactions);
+    }).then(function (reactions) {
+      addReactionsToMessages($scope.events, reactions);
+      console.info($scope.events);
     });
   }
 

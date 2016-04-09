@@ -129,9 +129,8 @@
 
                             <div class="lets-message-responses">
                                 <small class="text-muted">
-
-                                    <div ng-repeat="response in event.responses">
-                                        <img class="img-circle" src="img/profile_small.jpg" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.person}}</i> : {{response.message}}
+                                    <div ng-repeat="response in event.$$reactions">
+                                        <img class="img-circle" src="{{baseUrl}}{{response.$$expanded.author.href}}/profile.png" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.$$expanded.author.$$expanded.name}}</i> : {{response.$$expanded.description}}
                                     </div>
 
                                     <div ng-show="event.$$enteringResponse" class="text-right">
@@ -178,9 +177,8 @@
 
                             <div class="lets-message-responses">
                                 <small class="text-muted">
-
-                                    <div ng-repeat="response in event.responses">
-                                        <img class="img-circle" src="img/profile_small.jpg" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.author.$$expanded.name}}</i> : {{response.description}}
+                                    <div ng-repeat="response in event.$$reactions">
+                                        <img class="img-circle" src="{{baseUrl}}{{response.$$expanded.author.href}}/profile.png" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.$$expanded.author.$$expanded.name}}</i> : {{response.$$expanded.description}}
                                     </div>
 
                                     <div ng-show="event.$$enteringResponse" class="text-right">
