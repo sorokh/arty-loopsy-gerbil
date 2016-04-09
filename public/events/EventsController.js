@@ -53,17 +53,22 @@ function EventsController($scope, innergerbil, $q, toaster) {
   }
 
   $scope.reload = function() {
-    var promises = [];
-
-    promises.push(innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
+    return innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
       postedInDescendantsOfParties: groupParty,
       expand: 'results.author',
       orderBy: 'modified',
       descending: true
-    }));
-
-    return $q.all(promises).then(function(results) {
-      $scope.events = results[0].results;
+    }).then(function (ret) {
+      var roots = [];
+      var i;
+      $scope.events = ret.results;
+      for (i=0; i<ret.results.length; i++) {
+        roots.push(ret.results[i].$$meta.permalink);
+      }
+      return innergerbil.getPatternBatch($scope.baseUrl + '/messages?descendantsOfMessages=*', roots);
+    }).then(function (ret) {
+      for(i=0; i<ret.length; i++) {
+      }
     });
   }
 
@@ -171,6 +176,63 @@ function EventsController($scope, innergerbil, $q, toaster) {
       $scope.pop('success','Transactie aangemaakt.','Je hebt ' + transaction.amount + ' punt(en) gewaardeerd aan ' + transaction.to.$$expanded.name);
     }).catch(function (response) {
       console.error('unable to create transaction ' + response.error);
+    });
+  }
+
+  $scope.sendPrivateReply = function(event) {
+    var now = new Date();
+    var newmessageguid = innergerbil.generateGUID();
+    var newmessageurl = '/messages/' + newmessageguid;
+    var newmessage = {
+      $$meta: {
+        permalink: newmessageurl
+      },
+      key: newmessageguid,
+      description : event.$$newreply,
+      author: {
+        href: $scope.me.$$meta.permalink
+      },
+      tags: [],
+      photos: [],
+      created: now,
+      modified: now
+    };
+    var newmessagerelationguid = innergerbil.generateGUID();
+    var newmessagerelationurl = '/messagerelations/' + newmessagerelationguid;
+    var newmessagerelation = {
+      $$meta: {
+        permalink: newmessagerelationurl
+      },
+      key: newmessagerelationguid,
+      from: {
+        href: newmessageurl
+      },
+      to: {
+        href: event.$$meta.permalink
+      },
+      type: "response_private",
+    };
+    var batch = [
+      {
+        href: newmessageurl,
+        verb: 'PUT',
+        body: newmessage
+      },
+      {
+        href: newmessagerelationurl,
+        verb: 'PUT',
+        body: newmessagerelation
+      }
+    ];
+
+    return innergerbil.batch($scope.baseUrl, batch).then(function (result){
+      console.info('result : ' + result.statusCode);
+      event.$$enteringResponse = false;
+      $scope.pop('success','Antwoord verstuurd.','Je bericht aan ' + event.author.$$expanded.name + ' is verstuurd.');
+      $scope.reload();
+    }).catch(function (error) {
+      console.error('unable to create reply :');
+      console.error(error);
     });
   }
 

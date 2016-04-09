@@ -135,10 +135,10 @@
                                     </div>
 
                                     <div ng-show="event.$$enteringResponse" class="text-right">
-                                        <textarea class="form-control" placeholder="Geef je reactie in..."></textarea>
+                                        <textarea class="form-control" placeholder="Geef je reactie in..." ng-model="event.$$newreply"></textarea>
                                         <div style="margin-top: 4px">
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$enteringResponse = false">Annuleren</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="sendPrivateReply(event)">Sturen</a>
+                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Annuleren</a>
                                         </div>
                                     </div>
                                     <div ng-show="event.$$enteringTransaction" class="text-right">

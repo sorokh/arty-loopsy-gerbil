@@ -17,7 +17,8 @@ function MainController($scope, innergerbil, $q) {
     //partyContactDetails = results[1].results;
     //addContactDetailsToParties($scope.members, partyContactDetails);
     //splitContactDetails($scope.members);
-    console.log($scope.me); // eslint-disable-line
+    console.info("me : ");
+    console.info($scope.me); // eslint-disable-line
   });
 };
 
@@ -121,6 +122,28 @@ function addBalancesOfPartyrelationsToParties(parties, partyrelations, currentgr
       if(parties[i].$$balance) console.error('More than 1 balance in this context ???');
       parties[i].$$balance = fromToPartyrelation[permalink].balance;
     }
+  }
+}
+
+/* Convert an array of SRI resource into an associative object, based on permalink */
+function arrayToObjectOnPermalink(elements) {
+  var ret = {};
+  var i;
+
+  for(i=0; i<elements.length; i++) {
+    ret[elements[i].$$meta.permalink] = elements[i];
+  }
+
+  return ret;
+}
+
+/* Add replies to message. */
+function addRepliesToMessages(messages, replies) {
+  var messagePermalinkToMessage = arrayToObjectOnPermalink(messages);
+  var i, reply;
+
+  for(i=0; i<replies.length; i++) {
+    reply = replies[i];
   }
 }
 
@@ -305,7 +328,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       dataType: 'json'
     }).success(function (data, status) {
       var resp = {
-        status: status
+        statusCode: status
       };
 
       // Remove from expand cache.
@@ -333,7 +356,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       dataType: 'json'
     }).success(function (data, status) {
       var resp = {
-        status: status
+        statusCode: status
       };
 
       // Remove from expand cache.
@@ -385,7 +408,7 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
       dataType: 'json'
     }).success(function (data, status) {
       var resp = {
-        status: status
+        statusCode: status
       };
 
       // Remove from expand cache.
@@ -395,14 +418,57 @@ angular.module('inspinia').factory('innergerbil', ['$http', '$q', function ($htt
 
       defer.resolve(resp);
     }).error(function (resp) {
-      var resp = {
-        status: status
-      };
       defer.reject(resp);
     });
 
     return defer.promise;
   };
+
+  /*
+  Retrieve the given url for the given values in batch
+  So GET /message?postedinParties=*, [a,b,c,d,e,f,g,...] will
+  generate a sequence of GET operations, batching a,b,c,d,... first and
+  in a second get using e,f,g,... to avoid URLs longer than 1 kb, and
+  to batch as much as possible.
+  */
+  that.getPatternBatch = function(urlPatternWithStar, valuesForStar, params) {
+    var defer = $q.defer();
+
+    var urls = [];
+    var url = urlPatternWithStar;
+    var i;
+    var promises = [];
+    var ret;
+
+    while(valuesForStar.length > 0) {
+      url = url.replace(/\*/,valuesForStar.pop() + ',*');
+      if(url.length > 900) {
+        url = url.replace(/,\*/,'');
+        urls.push(url);
+        url = urlPatternWithStar;
+      }
+    }
+    if(url !== urlPatternWithStar) {
+      url = url.replace(/,\*/,'');
+      urls.push(url);
+    }
+
+    for(i=0; i<urls.length; i++) {
+      promises.push(that.getListResourcePaged(urls[i], params));
+    }
+
+    $q.all(promises).then(function (results) {
+      ret = [];
+      for(i=0; i<results.length; i++) {
+        ret = ret.concat(results[i].results);
+      }
+      defer.resolve(ret);
+    }).catch(function (error) {
+      defer.reject(error);
+    });
+
+    return defer.promise;
+  }
 
   var toArray = function (list) {
     var ret = {};
