@@ -52,9 +52,9 @@
         <div class="lets-message-title">
           <h3>Berichten</h3>
         </div>
-        <div ng-repeat="event in messages">
-          <div ng-show="event.tags.indexOf('Vraag') != -1 || event.tags.indexOf('Aanbod') != -1">
-            <message></message>
+        <div ng-repeat="message in messages">
+          <div ng-show="message.tags.indexOf('Vraag') != -1 || message.tags.indexOf('Aanbod') != -1">
+            <message message="message" base-url="baseUrl"></message>
           </div>
         </div> <!-- ng-repeat type: message demand -->
 
