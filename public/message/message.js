@@ -3,7 +3,8 @@ function messageDirective() {
     restrict: 'E',
     scope: {
       event: '=message',
-      baseUrl: '='
+      baseUrl: '=',
+      me: '='
     },
     templateUrl: function(elem, attr){
       return 'message/message.html';
