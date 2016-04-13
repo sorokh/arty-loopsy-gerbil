@@ -2,3 +2,4 @@ bower_components
 public/bowerjs
 public/bowercss
 npm-debug.log
+node_modules

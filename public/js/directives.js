@@ -305,3 +305,4 @@ angular
     .directive('ionRangeSlider', ionRangeSlider)
     .directive('dropZone', dropZone)
     .directive('responsiveVideo', responsiveVideo)
+    .directive('message', messageDirective)

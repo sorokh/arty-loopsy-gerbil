@@ -117,44 +117,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Vraag') != -1">
-                        <div class="lets-message" ng-hide="event.$read">
-                            <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
-                                <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
-                            </a>
-
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">1 minuut geleden</small>
-                                <a ui-sref="lets.profile({key: event.author.$$expanded.key})"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
-                            </div>
-
-                            <div class="lets-message-responses">
-                                <small class="text-muted">
-                                    <div ng-repeat="response in event.$$reactions">
-                                        <img class="img-circle" src="{{baseUrl}}{{response.$$expanded.author.href}}/profile.png" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.$$expanded.author.$$expanded.name}}</i> : {{response.$$expanded.description}}
-                                    </div>
-
-                                    <div ng-show="event.$$enteringResponse" class="text-right">
-                                        <textarea class="form-control" placeholder="Geef je reactie in..." ng-model="event.$$newreply"></textarea>
-                                        <div style="margin-top: 4px">
-                                            <a class="btn btn-primary btn-xs" ng-click="sendPrivateReply(event)">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Annuleren</a>
-                                        </div>
-                                    </div>
-                                    <div ng-show="event.$$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="number" size="3" ng-model="event.$$newTransactionAmount"></input> punt(en) naar {{event.author.$$expanded.name}}.
-                                            <a class="btn btn-primary btn-xs" ng-click="createTransaction(event)">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringTransaction = false">Annuleren</a>
-                                    </div>
-                                    <div style="padding-top: 5px"></div>
-                                    <div class="text-right">
-                                        <a ng-click="event.$$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
-                                        <a ng-click="event.$$enteringResponse = true; event.$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
-                                        <a ng-show="event.author.href != me.$$meta.permalink" ng-click="event.$$enteringTransaction = true; event.$$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
-                                        <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="setCurrentEvent(event)" data-toggle="modal" data-target="#deleteMessageModal"><i class="fa fa-trash" title="Verwijderen"></i></a>
-                                    </div>
-                                </small>
-                            </div>
-                        </div>
+                        <message></message>
                     </div>
                 </div> <!-- ng-repeat type: message demand -->
 
@@ -165,44 +128,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Aanbod') != -1">
-                        <div class="lets-message" ng-hide="event.$read">
-                            <a ui-sref="lets.profile({key: event.author.$$expanded.key})">
-                                <img alt="image" class="img-circle pull-left" ng-src="{{baseUrl}}{{event.author.href}}/profile.png" width="40" style="margin-right: 8px">
-                            </a>
-
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">1 minuut geleden</small>
-                                <a ui-sref="lets.profile({key: event.author.$$expanded.key})"><strong>({{event.author.$$expanded.name}})</strong></a> <b>{{event.title}}</b> - {{event.description}}
-                            </div>
-
-                            <div class="lets-message-responses">
-                                <small class="text-muted">
-                                    <div ng-repeat="response in event.$$reactions">
-                                        <img class="img-circle" src="{{baseUrl}}{{response.$$expanded.author.href}}/profile.png" width="30" style="margin-right: 8px; margin-bottom: 4px;"> <i>{{response.$$expanded.author.$$expanded.name}}</i> : {{response.$$expanded.description}}
-                                    </div>
-
-                                    <div ng-show="event.$$enteringResponse" class="text-right">
-                                        <textarea class="form-control" placeholder="Geef je reactie in..."></textarea>
-                                        <div style="margin-top: 4px">
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringResponse = false">Annuleren</a>
-                                        </div>
-                                    </div>
-                                    <div ng-show="event.$$enteringTransaction" class="text-right">
-                                            Ik stuur <input type="number" size="3" ng-model="event.$$newTransactionAmount"></input> punt(en) naar {{event.author.$$expanded.name}}.
-                                            <a class="btn btn-primary btn-xs" ng-click="createTransaction(event)">Sturen</a>
-                                            <a class="btn btn-primary btn-xs" ng-click="event.$$enteringTransaction = false">Annuleren</a>
-                                    </div>
-                                    <div style="padding-top: 5px"></div>
-                                    <div class="text-right">
-                                        <a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
-                                        <a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>
-                                        <a ng-show="event.author.href != me.$$meta.permalink" ng-click="event.$$enteringTransaction = true; event.$$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
-                                        <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="setCurrentEvent(event)" data-toggle="modal" data-target="#deleteMessageModal"><i class="fa fa-trash" title="Verwijderen"></i></a>
-                                    </div>
-                                </small>
-                            </div>
-                        </div>
+                        <message></message>
                     </div>
                 </div> <!-- ng-repeat type: message offer -->
 
