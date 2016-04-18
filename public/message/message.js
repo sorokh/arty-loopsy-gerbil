@@ -2,16 +2,16 @@ function messageDirective($log, $uibModal) {
   return {
     restrict: 'E',
     scope: {
-      event: '=message',
+      message: '=',
       baseUrl: '=',
       me: '=',
       messages: '='
     },
     templateUrl: 'message/message.html',
     controller: ['$scope', function ($scope) {
-      $scope.delete = function (message) {
-        $scope.message = message;
-        console.info("current message : " + message);
+      $scope.delete = function (currentMessage) {
+        $scope.currentMessage = currentMessage;
+        console.info("current message : " + currentMessage);
 
         var modalInstance = $uibModal.open({
           animation: true,
@@ -20,7 +20,7 @@ function messageDirective($log, $uibModal) {
           size: 200,
           resolve: {
             message: function () {
-              return $scope.message;
+              return $scope.currentMessage;
             },
             baseUrl: function () {
               return $scope.baseUrl;
