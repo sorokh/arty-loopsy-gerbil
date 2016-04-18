@@ -6,10 +6,8 @@ angular.module('inspinia').controller('MessageDeleteModalController',
 
     $scope.ok = function () {
       return innergerbil.deleteResource($scope.baseUrl, $scope.message).then(function (response) {
-        var events = $scope.messages;
-        var index = events.indexOf(event);
-        events.splice(index, 1);
-        if(response.statusCode == 200) {
+        if(response.statusCode === 200) {
+          $scope.messages.splice($scope.messages.indexOf(message), 1);
           $uibModalInstance.close();
           toaster.pop('success', 'Bericht verwijderd', 'Je bericht is correct verwijderd.');
         } else {
