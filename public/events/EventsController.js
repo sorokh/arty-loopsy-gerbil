@@ -75,16 +75,7 @@ function EventsController($scope, innergerbil, $q, toaster) {
   }
 
   $scope.delete = function(event) {
-    console.info('delete ' + event);
-    return innergerbil.deleteResource($scope.baseUrl, event).then(function(response) {
-      console.info('delete response: ' + response.statusCode);
-      var events = $scope.events;
-      var index = events.indexOf(event);
-      events.splice(index,1);
-      $scope.pop('success','Bericht verwijderd','Je bericht is correct verwijderd.');
-    }).catch(function (response) {
-      console.error("Unable to delete item " + event.$$meta.permalink + ". statusCode: " + response.statusCode);
-    });
+
   }
 
   $scope.pop = function(type, title, text){

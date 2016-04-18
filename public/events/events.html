@@ -1,5 +1,5 @@
 <div>
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content animated fadeIn">
     <!--              -->
     <!-- Classic view -->
     <!--              -->
@@ -117,7 +117,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Vraag') != -1">
-                        <message message="event" base-url="baseUrl" me="me"></message>
+                        <message message="event" messages="events" base-url="baseUrl" me="me"></message>
                     </div>
                 </div> <!-- ng-repeat type: message demand -->
 
@@ -128,7 +128,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Aanbod') != -1">
-                        <message message="event" base-url="baseUrl" me="me"></message>
+                        <message message="event" messages="events" base-url="baseUrl" me="me"></message>
                     </div>
                 </div> <!-- ng-repeat type: message offer -->
 

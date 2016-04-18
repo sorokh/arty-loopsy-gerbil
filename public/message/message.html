@@ -31,7 +31,7 @@
                 <a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm" title="Publiek reageren"><i class="fa fa-bullhorn"></i></a>
                 <!--<a ng-click="event.$$enteringResponse = true; event.$$enteringTransaction = false;" class="btn btn-primary btn-sm"><i class="fa fa-comment" title="Privé Reageren"></i></a>-->
                 <a ng-show="event.author.href != me.$$meta.permalink" ng-click="event.$$enteringTransaction = true; event.$$enteringResponse = false;" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" title="Waarderen"></i></a>
-                <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="setCurrentEvent(event)" data-toggle="modal" data-target="#deleteMessageModal"><i class="fa fa-trash" title="Verwijderen"></i></a>
+                <a ng-show="event.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="delete(event)"><i class="fa fa-trash" title="Verwijderen"></i></a>
             </div>
         </small>
     </div>
