@@ -53,6 +53,7 @@ function EventsController($scope, innergerbil, $q, toaster) {
   }
 
   $scope.reload = function() {
+    var messages;
     return innergerbil.getListResourcePaged($scope.baseUrl + '/messages', {
       postedInDescendantsOfParties: groupParty,
       expand: 'results.author',
@@ -60,22 +61,17 @@ function EventsController($scope, innergerbil, $q, toaster) {
       descending: true
     }).then(function (ret) {
       var reactions = [];
-      var i, message, messages;
+      var i, message;
       messages = ret.results;
-      $scope.events = messages;
       for (i=0; i<messages.length; i++) {
         message = messages[i];
         reactions = reactions.concat(arrayOfPermalinksFromArrayOfSRILinks(message.$$reactions));
       }
       return innergerbil.getPatternBatch($scope.baseUrl + '/messages?expand=results.author&hrefs=*', reactions);
     }).then(function (reactions) {
-      addReactionsToMessages($scope.events, reactions);
-      console.info($scope.events);
+      addReactionsToMessages(messages, reactions);
+      $scope.events = messages;
     });
-  }
-
-  $scope.delete = function(event) {
-
   }
 
   $scope.pop = function(type, title, text){
