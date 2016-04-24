@@ -306,3 +306,4 @@ angular
     .directive('dropZone', dropZone)
     .directive('responsiveVideo', responsiveVideo)
     .directive('message', messageDirective)
+    .directive('transactionList', transactionListDirective)

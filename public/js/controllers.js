@@ -62,8 +62,8 @@ function addPartiesToTransactions(transactions, parties) {
   });
 
   transactions.forEach(function (transaction) {
-    transaction.from = permalinkToParty[transaction.from.href];
-    transaction.to = permalinkToParty[transaction.to.href];
+    transaction.from.$$expanded = permalinkToParty[transaction.from.href];
+    transaction.to.$$expanded = permalinkToParty[transaction.to.href];
   });
 }
 
