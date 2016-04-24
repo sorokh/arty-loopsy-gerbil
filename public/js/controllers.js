@@ -30,7 +30,8 @@ angular
     .controller('TransactionsController', TransactionsController)
     .controller('EventsController', EventsController)
     .controller('DeleteMessageDialogController', DeleteMessageDialogController)
-    .controller('CreateTransactionDialogController', CreateTransactionDialogController);
+    .controller('CreateTransactionDialogController', CreateTransactionDialogController)
+    .controller('CreateMessageDialogController', CreateMessageDialogController);
 
 function addContactDetailsToParties(parties, contactdetails) {
   'use strict';
