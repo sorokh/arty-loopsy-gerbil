@@ -22,3 +22,23 @@ function DeleteMessageDialogController ($scope, $uibModalInstance, message, mess
     $uibModalInstance.dismiss('cancel');
   };
 }
+
+function openDeleteMessageDialog($uibModal, baseUrl, message, messages) {
+  var modalInstance = $uibModal.open({
+    animation: true,
+    templateUrl: 'messageViewer/deleteMessageDialog.html',
+    controller: 'DeleteMessageDialogController',
+    size: 200,
+    resolve: {
+      message: function () {
+        return message;
+      },
+      baseUrl: function () {
+        return baseUrl;
+      },
+      messages: function () {
+        return messages;
+      }
+    }
+  });
+}
