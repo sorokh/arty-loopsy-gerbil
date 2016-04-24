@@ -36,7 +36,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 }
 
 angular
-    .module('inspinia')
+    .module('arty')
     .config(config)
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;

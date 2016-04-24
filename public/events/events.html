@@ -117,7 +117,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Vraag') != -1">
-                        <message message="event" messages="events" base-url="baseUrl" me="me"></message>
+                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
                     </div>
                 </div> <!-- ng-repeat type: message demand -->
 
@@ -128,7 +128,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Aanbod') != -1">
-                        <message message="event" messages="events" base-url="baseUrl" me="me"></message>
+                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
                     </div>
                 </div> <!-- ng-repeat type: message offer -->
 
@@ -202,22 +202,4 @@
             </div>
         </div>
     </div><!-- animation wrapper -->
-    <!-- Confirmation modal for creating a transaction -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="createTransactionModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Transactie aanmaken</h4>
-          </div>
-          <div class="modal-body">
-            <p>Bent u zeker dat u {{newTransaction.amount}} punten wil waarderen aan {{newTransaction.to.$$expanded.name}} ?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" ng-click="createTransaction(newTransaction)" data-dismiss="modal">Verwijderen</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 </div><!-- ng-controller -->

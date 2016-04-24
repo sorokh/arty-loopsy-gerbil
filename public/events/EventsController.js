@@ -140,34 +140,6 @@ function EventsController($scope, innergerbil, $q, toaster) {
     });
   }
 
-  $scope.createTransaction = function(event) {
-    var transaction;
-    var transactionGuid = innergerbil.generateGUID();
-    var transactionUrl = '/transactions/' + transactionGuid;
-    transaction = {
-      $$meta: {
-        permalink: transactionUrl
-      },
-      key: transactionGuid,
-      from: {
-        href: $scope.me.$$meta.permalink,
-      },
-      to: {
-        href: event.author.href,
-        $$expanded: event.author.$$expanded
-      },
-      amount: event.$$newTransactionAmount
-    };
-
-    return innergerbil.createOrUpdateResource($scope.baseUrl, transaction).then(function (result){
-      console.info('result : ' + result.statusCode);
-      event.$$enteringTransaction = false;
-      $scope.pop('success','Transactie aangemaakt.','Je hebt ' + transaction.amount + ' punt(en) gewaardeerd aan ' + transaction.to.$$expanded.name);
-    }).catch(function (response) {
-      console.error('unable to create transaction ' + response.error);
-    });
-  }
-
   $scope.sendPrivateReply = function(event) {
     var now = new Date();
     var newmessageguid = innergerbil.generateGUID();

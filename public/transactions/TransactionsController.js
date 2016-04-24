@@ -1,4 +1,4 @@
-function TransactionsController($scope, innergerbil, $q) {
+function TransactionsController($scope, innergerbil, $q, $uibModal) {
   var parties;
   var promises = [];
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849';
@@ -22,10 +22,13 @@ function TransactionsController($scope, innergerbil, $q) {
     type: 'person'
   }));
 
+  $scope.createTransaction = function() {
+    openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me);
+  }
+
   return $q.all(promises).then(function (results) {
     $scope.transactions = results[0].results;
     parties = results[1].results;
     addPartiesToTransactions($scope.transactions, parties);
-    console.log($scope.transactions); // eslint-disable-line
   });
 }

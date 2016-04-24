@@ -4,7 +4,7 @@
  *
  */
 (function () {
-    angular.module('inspinia', [
+    angular.module('arty', [
         'ui.router',                    // Routing
         'oc.lazyLoad',                  // ocLazyLoad
         'ui.bootstrap',                 // Ui Bootstrap
@@ -15,5 +15,6 @@
         'toaster'
     ])
 })();
+
 
 // Other libraries are loaded dynamically in the config.js file using the library ocLazyLoad

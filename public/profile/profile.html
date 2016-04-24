@@ -54,7 +54,7 @@
         </div>
         <div ng-repeat="message in messages">
           <div ng-show="message.tags.indexOf('Vraag') != -1 || message.tags.indexOf('Aanbod') != -1">
-            <message message="message" base-url="baseUrl" me="me"></message>
+            <message-viewer message="message" base-url="baseUrl" me="me"></message>
           </div>
         </div> <!-- ng-repeat type: message demand -->
 

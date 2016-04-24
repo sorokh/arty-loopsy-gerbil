@@ -1,4 +1,4 @@
-function transactionListDirective($log, $uibModal) {
+function transactionList($log, $uibModal) {
   return {
     restrict: 'E',
     scope: {

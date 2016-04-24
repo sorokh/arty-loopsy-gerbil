@@ -294,7 +294,7 @@ function dropZone() {
  * Pass all functions into module
  */
 angular
-    .module('inspinia')
+    .module('arty')
     .directive('pageTitle', pageTitle)
     .directive('sideNavigation', sideNavigation)
     .directive('iboxTools', iboxTools)
@@ -305,5 +305,5 @@ angular
     .directive('ionRangeSlider', ionRangeSlider)
     .directive('dropZone', dropZone)
     .directive('responsiveVideo', responsiveVideo)
-    .directive('message', messageDirective)
-    .directive('transactionList', transactionListDirective)
+    .directive('messageViewer', messageViewer)
+    .directive('transactionList', transactionList)

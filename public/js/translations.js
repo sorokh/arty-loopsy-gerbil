@@ -63,5 +63,5 @@ function config($translateProvider) {
 }
 
 angular
-    .module('inspinia')
+    .module('arty')
     .config(config)

@@ -1,4 +1,4 @@
-function messageDirective($log, $uibModal) {
+function messageViewer($log, $uibModal) {
   return {
     restrict: 'E',
     scope: {
@@ -7,16 +7,20 @@ function messageDirective($log, $uibModal) {
       me: '=',
       messages: '='
     },
-    templateUrl: 'message/message.html',
+    templateUrl: 'messageViewer/messageViewer.html',
     controller: ['$scope', function ($scope) {
+      $scope.createTransaction = function(to) {
+        openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, to);
+      }
+
       $scope.delete = function (currentMessage) {
         $scope.currentMessage = currentMessage;
         console.info("current message : " + currentMessage);
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'message/deleteModal.html',
-          controller: 'MessageDeleteModalController',
+          templateUrl: 'messageViewer/deleteMessageDialog.html',
+          controller: 'DeleteMessageDialogController',
           size: 200,
           resolve: {
             message: function () {
