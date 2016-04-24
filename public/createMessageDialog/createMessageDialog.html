@@ -1,12 +1,79 @@
 <div class="modal-header">
-    <h3 class="modal-title">Bericht aanmaken</h3>
+  <h3 class="modal-title">Bericht aanmaken</h3>
 </div>
 <div class="modal-body">
-  <p>
-    Ik stuur <input type="number" ng-model="amount"> punten aan {{to.name}}.
-  </p>
+  <form role="form" class="form-horizontal">
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Titel</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" ng-model="newmessage.title">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="newmessage.description" rows="5"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Goed / Dienst</label>
+      <div class="col-sm-9">
+        <select class="form-control" ng-model="newmessage.goodorservice">
+          <option value="Goed">Goed</option>
+          <option value="Dienst">Dienst</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Aanbod / Vraag</label>
+      <div class="col-sm-9">
+        <select class="form-control" ng-model="newmessage.offerorrequest">
+          <option value="Aanbod">Aanbod</option>
+          <option value="Vraag">Vraag</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="newmessage.goodorservice == 'Dienst'">
+      <label class="col-sm-3 control-label">Evenement ?</label>
+      <div class="col-sm-1">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newmessage.event"> </label>
+        </div>
+      </div>
+      <div class="col-sm-6 col-sm-offset-2" ng-show="newmessage.event">
+        <datepicker ng-model="newmessage.eventdate" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="newmessage.goodorservice == 'Goed'">
+      <label class="col-sm-3 control-label">Uitlenen ?</label>
+      <div class="col-sm-1">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newmessage.loan"> </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Tags</label>
+      <div class="col-sm-9">
+        <ui-select multiple ng-model="newmessage.tags" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+          <ui-select-match placeholder="Voeg categorieën toe...">{{$item}}</ui-select-match>
+          <ui-select-choices repeat="tag in availableTags | filter:$select.search">
+            {{tag}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="amount <= 0" ng-click="ok()">OK</button>
-    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-primary" type="button" ng-disabled="amount <= 0" ng-click="ok()">Plaatsen</button>
+  <button class="btn btn-default" type="button" ng-click="cancel()">Annuleren</button>
 </div>

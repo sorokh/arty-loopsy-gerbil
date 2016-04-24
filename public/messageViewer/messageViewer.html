@@ -15,7 +15,7 @@
             </div>
             <div style="padding-top: 5px"></div>
             <div class="text-right">
-                <a class="btn btn-primary btn-sm" ng-click=""><i class="fa fa-comment"></i> Reageren</a>
+                <a class="btn btn-primary btn-sm" ng-click="createReply(message)"><i class="fa fa-comment"></i> Reageren</a>
                 <a ng-show="message.author.href != me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="createTransaction(message.author.href)" ><i class="fa fa-thumbs-up" title="Waarderen"></i> Waarderen </a>
                 <a ng-show="message.author.href == me.$$meta.permalink" class="btn btn-primary btn-sm" ng-click="deleteMessage(message)"><i class="fa fa-trash"></i> Verwijderen</a>
             </div>

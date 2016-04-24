@@ -1,4 +1,4 @@
-function EventsController($scope, innergerbil, $q, toaster) {
+function EventsController($scope, innergerbil, $q, toaster, $uibModal) {
   // TODO: use "me" as party in call to forDescendantsOfParties
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849'; // LETS Dendermonde
   var letsLebbeke = '/parties/aca5e15d-9f4c-4c79-b906-f7e868b3abc5';
@@ -195,6 +195,10 @@ function EventsController($scope, innergerbil, $q, toaster) {
       console.error('unable to create reply :');
       console.error(error);
     });
+  }
+
+  $scope.createMessage = function () {
+    openCreateMessageDialog($uibModal, $scope.baseUrl, $scope.me);
   }
 
   $scope.reload();

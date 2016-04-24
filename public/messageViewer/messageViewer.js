@@ -16,6 +16,10 @@ function messageViewer($log, $uibModal) {
       $scope.deleteMessage = function(message) {
         openDeleteMessageDialog($uibModal, $scope.baseUrl, message, $scope.messages);
       }
+
+      $scope.createReply = function(message) {
+        openCreateReplyDialog($uibModal, $scope.baseUrl, $scope.me, message);
+      }
     }]
   };
 }
