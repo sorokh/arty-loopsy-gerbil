@@ -1,6 +1,4 @@
-
-
-function CreateMessageDialogController ($scope, $uibModalInstance, innergerbil, toaster, baseUrl, from) {
+function CreateMessageDialogController ($scope, $uibModalInstance, innergerbil, toaster, baseUrl, from, refresh) {
   'use strict';
   var groupParty = '/parties/8bf649b4-c50a-4ee9-9b02-877aa0a71849'; // LETS Dendermonde
   var letsLebbeke = '/parties/aca5e15d-9f4c-4c79-b906-f7e868b3abc5';
@@ -73,9 +71,15 @@ function CreateMessageDialogController ($scope, $uibModalInstance, innergerbil, 
     ];
 
     innergerbil.batch($scope.baseUrl, batch).then(function (response) {
-      console.info('batch status : ' + response.status);
-      toaster.pop('success','Bericht aangemaakt !','Je bericht is correct opgeslagen.');
-      $uibModalInstance.dismiss('ok');
+      if(response.statusCode === 201) {
+        toaster.pop('success','Bericht aangemaakt !','Je bericht is correct opgeslagen.');
+        $uibModalInstance.dismiss('ok');
+        if(refresh) refresh();
+      } else {
+        toaster.pop('error','Bericht kon niet worden aangemaakt.','');
+        console.error('Unable to create message');
+        console.error(batch);
+      }
     });
   };
 
@@ -84,7 +88,7 @@ function CreateMessageDialogController ($scope, $uibModalInstance, innergerbil, 
   };
 }
 
-function openCreateMessageDialog ($uibModal, baseUrl, from) {
+function openCreateMessageDialog ($uibModal, baseUrl, from, refresh) {
   var modalInstance = $uibModal.open({
     animation: true,
     templateUrl: 'createMessageDialog/createMessageDialog.html',
@@ -96,6 +100,9 @@ function openCreateMessageDialog ($uibModal, baseUrl, from) {
       },
       from: function () {
         return from;
+      },
+      refresh: function () {
+        return refresh;
       }
     }
   });

@@ -1,4 +1,4 @@
-function CreateTransactionDialogController ($scope, $uibModalInstance, innergerbil, toaster, baseUrl, from, to) {
+function CreateTransactionDialogController ($scope, $uibModalInstance, innergerbil, toaster, baseUrl, from, to, refresh) {
   'use strict';
   $scope.from = from;
   $scope.to = to;
@@ -30,6 +30,7 @@ function CreateTransactionDialogController ($scope, $uibModalInstance, innergerb
       $uibModalInstance.close();
 // TODO : When expansion on sri4node is fixed, switch to 'from' and 'to' as objects, rather than permalinks + restore the full message.
 //      $scope.pop('success','Transactie aangemaakt.','Je hebt ' + transaction.amount + ' punt(en) gewaardeerd aan ' + transaction.to.$$expanded.name);
+      if(refresh) refresh();
       toaster.pop('success','Transactie aangemaakt.','Je hebt ' + transaction.amount + ' punt(en) gewaardeerd.');
     }).catch(function (response) {
       console.error('unable to create transaction ' + response.error);

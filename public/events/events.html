@@ -30,13 +30,12 @@
             </div>
         </div>
 
+        <br>
+
         <div class="row" ng-show="classic">
             <div class="col-lg-8">
-                <br>
-                <a class="btn btn-primary pull-right" ng-click="createMessage()">Nieuw bericht maken</a>
-                <br>
-
                 <div class="lets-message-title">
+                    <a class="pull-right" ng-click="createMessage()">Nieuw bericht maken</a>
                     <h3>Vraag</h3>
                 </div>
                 <div ng-repeat="event in events | filter:search">

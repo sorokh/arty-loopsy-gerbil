@@ -118,7 +118,7 @@ function EventsController($scope, innergerbil, $q, toaster, $uibModal) {
   }
 
   $scope.createMessage = function () {
-    openCreateMessageDialog($uibModal, $scope.baseUrl, $scope.me);
+    openCreateMessageDialog($uibModal, $scope.baseUrl, $scope.me, $scope.reload);
   }
 
   $scope.reload();
