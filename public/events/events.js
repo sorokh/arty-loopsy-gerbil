@@ -12,16 +12,7 @@ function EventsController($scope, innergerbil, $q, toaster, $uibModal) {
 
   $scope.events = [];
 
-  $scope.availableTags = ['Eten en Drinken', 'Artisanaal', 'Gezondheid en Verzorging', 'Herstellingen', 'Huishouden', 'Klussen', 'Tuin', 'Vervoer', 'Hergebruik'];
   $scope.request = false;
-
-  $scope.clearMessage = function() {
-    $scope.newmessage = {
-      tags: [],
-      photos: []
-    };
-  }
-  $scope.clearMessage();
 
 /*  $scope.update = function() {
     sync = function(array, item, shouldBePresent) {
@@ -42,15 +33,6 @@ function EventsController($scope, innergerbil, $q, toaster, $uibModal) {
     sync($scope.multipleDemo.colors, "Aanbod", $scope.offer);
   };
 */
-
-  function convertToTag(message, key, expected) {
-    if(expected === message[key]) {
-      if(!message.tags) {
-        message.tags = [];
-      }
-      message.tags.push(expected);
-    }
-  }
 
   $scope.reload = function() {
     var messages;
@@ -76,68 +58,6 @@ function EventsController($scope, innergerbil, $q, toaster, $uibModal) {
 
   $scope.pop = function(type, title, text){
     toaster.pop(type, title, text);
-  }
-
-  $scope.setCurrentEvent = function(event) {
-    $scope.currentEvent = event;
-    console.log("currentEvent :" + $scope.currentEvent);
-  }
-
-  $scope.saveMessage = function() {
-    var now = new Date();
-    var messageuuid = innergerbil.generateGUID();
-    var messagepartyuuid = innergerbil.generateGUID();
-    var messageurl = '/messages/' + messageuuid;
-    var messagepartyurl = '/messageparties/' + messagepartyuuid;
-    var batch;
-    var messageparty;
-
-    convertToTag($scope.newmessage, 'goodorservice', 'Goed');
-    convertToTag($scope.newmessage, 'goodorservice', 'Dienst');
-    convertToTag($scope.newmessage, 'offerorrequest', 'Aanbod');
-    convertToTag($scope.newmessage, 'offerorrequest', 'Vraag');
-
-    delete $scope.newmessage.goodorservice;
-    delete $scope.newmessage.offerorrequest;
-
-    $scope.newmessage.created = now;
-    $scope.newmessage.modified = now;
-    $scope.newmessage.author = { href: $scope.me.$$meta.permalink };
-    $scope.newmessage.key = messageuuid;
-
-    messageparty = {
-      $$meta: {
-        permalink: messagepartyurl
-      },
-      message: { href: messageurl },
-      party: { href: letsLebbeke },
-      key: messagepartyuuid
-    };
-
-    $scope.newmessage.$$meta = {
-      permalink: messageurl
-    }
-
-    batch = [
-      {
-        href: messageurl,
-        verb: 'PUT',
-        body: $scope.newmessage
-      },
-      {
-        href: messagepartyurl,
-        verb: 'PUT',
-        body: messageparty
-      }
-    ];
-
-    innergerbil.batch($scope.baseUrl, batch).then(function (response) {
-      console.info('batch status : ' + response.status);
-      return $scope.reload();
-    }).then(function () {
-      $scope.clearMessage();
-      $scope.pop('success','Bericht aangemaakt !','Je bericht is correct opgeslagen.');
-    });
   }
 
   $scope.sendPrivateReply = function(event) {

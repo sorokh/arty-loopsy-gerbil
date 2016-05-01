@@ -18,6 +18,7 @@ function messageViewer($log, $uibModal) {
       }
 
       $scope.createReply = function(message) {
+        console.log('REPLY')
         openCreateReplyDialog($uibModal, $scope.baseUrl, $scope.me, message);
       }
     }]

@@ -32,85 +32,8 @@
 
         <div class="row" ng-show="classic">
             <div class="col-lg-8">
-                <!--
-                <div>
-                    <i class="fa fa-cogs"></i>
-                    <a ng-click="classic = !classic" ng-hide="classic"> Klassiek</a>
-                    <a ng-click="classic = !classic" ng-show="classic"> Gebeurtenissen</a>
-                </div>
-                -->
                 <br>
                 <a class="btn btn-primary pull-right" ng-click="createMessage()">Nieuw bericht maken</a>
-                <br>
-                <!--
-                <div class="lets-message">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <textarea class="form-control" placeholder="Plaats een nieuw bericht..." ng-model="newmessage.description"></textarea>
-                            </div>
-                        </div>
-                        <div ng-show="newmessage.description.length > 0">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Titel</label>
-                                <div class="col-sm-9"><input type="text" class="form-control" ng-model="newmessage.title"></div>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Goed / Dienst</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" ng-model="newmessage.goodorservice">
-                                        <option value="Goed">Goed</option>
-                                        <option value="Dienst">Dienst</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Aanbod / Vraag</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" ng-model="newmessage.offerorrequest">
-                                        <option value="Aanbod">Aanbod</option>
-                                        <option value="Vraag">Vraag</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-show="newmessage.goodorservice == 'Dienst'">
-                                <label class="col-sm-3 control-label">Evenement ?</label>
-                                <div class="col-sm-1">
-                                    <div class="checkbox"><label><input type="checkbox" ng-model="newmessage.event"> </label></div>
-                                </div>
-                                <div class="col-sm-6 col-sm-offset-2" ng-show="newmessage.event">
-                                    <datepicker ng-model="newmessage.eventdate" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-show="newmessage.goodorservice == 'Goed'">
-                                <label class="col-sm-3 control-label">Uitlenen ?</label>
-                                <div class="col-sm-1">
-                                    <div class="checkbox"><label><input type="checkbox" ng-model="newmessage.loan"> </label></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Tags</label>
-                                <div class="col-sm-9">
-                                    <ui-select multiple ng-model="newmessage.tags" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
-                                        <ui-select-match placeholder="Voeg categorieën toe...">{{$item}}</ui-select-match>
-                                        <ui-select-choices repeat="tag in availableTags | filter:$select.search">
-                                              {{tag}}
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-offset-8 col-sm-4">
-                                    <a class="btn btn-primary" type="submit" ng-click="saveMessage()">Plaatsen</a>
-                                    <a class="btn btn-primary" type="submit" ng-click="clearMessage()">Annuleren</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
--->
                 <br>
 
                 <div class="lets-message-title">
@@ -120,7 +43,7 @@
                     <div ng-show="event.tags.indexOf('Vraag') != -1">
                         <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
                     </div>
-                </div> <!-- ng-repeat type: message demand -->
+                </div>
 
                 <br>
 
@@ -131,8 +54,7 @@
                     <div ng-show="event.tags.indexOf('Aanbod') != -1">
                         <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
                     </div>
-                </div> <!-- ng-repeat type: message offer -->
-
+                </div>
             </div>
             <div class="col-lg-4">
                 <div ng-repeat="event in events">
