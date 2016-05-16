@@ -3,3 +3,4 @@ public/bowerjs
 public/bowercss
 npm-debug.log
 node_modules
+*.suo
