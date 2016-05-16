@@ -17,10 +17,10 @@ function CreateTransactionDialogController ($scope, $uibModalInstance, innergerb
       },
       key: transactionGuid,
       from: {
-        href: $scope.from
+        href: $scope.from.$$meta.permalink
       },
       to: {
-        href: $scope.to
+        href: $scope.to.$$meta.permalink
       },
       amount: $scope.amount
     };

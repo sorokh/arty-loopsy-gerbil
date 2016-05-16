@@ -11,7 +11,7 @@ function messageViewer($log, $uibModal) {
     templateUrl: 'messageViewer/messageViewer.html',
     controller: ['$scope', function ($scope) {
       $scope.createTransaction = function(to) {
-        openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, to, $scope.reload);
+        openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me, to, $scope.reload);
       }
 
       $scope.deleteMessage = function(message) {

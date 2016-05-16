@@ -45,7 +45,7 @@ console.info($scope.messages);
   }
 
   $scope.createTransaction = function() {
-    openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, $scope.profile.$$meta.permalink);
+    openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me, $scope.profile);
   }
 
   return $scope.reload();
