@@ -36,8 +36,8 @@ console.info($scope.messages);
     });
   }
 
-  $scope.createTransaction = function(to) {
-    openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, to);
+  $scope.createTransaction = function() {
+    openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, $scope.profile.$$meta.permalink);
   }
 
   return $scope.reload();

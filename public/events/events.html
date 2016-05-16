@@ -40,7 +40,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Vraag') != -1">
-                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
+                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me" reload="reload"></message-viewer>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                 </div>
                 <div ng-repeat="event in events | filter:search">
                     <div ng-show="event.tags.indexOf('Aanbod') != -1">
-                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me"></message-viewer>
+                        <message-viewer message="event" messages="events" base-url="baseUrl" me="me" reload="reload"></message-viewer>
                     </div>
                 </div>
             </div>

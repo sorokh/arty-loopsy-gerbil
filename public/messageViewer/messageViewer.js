@@ -5,12 +5,13 @@ function messageViewer($log, $uibModal) {
       message: '=',
       baseUrl: '=',
       me: '=',
-      messages: '='
+      messages: '=',
+      reload: '&'
     },
     templateUrl: 'messageViewer/messageViewer.html',
     controller: ['$scope', function ($scope) {
       $scope.createTransaction = function(to) {
-        openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, to);
+        openCreateTransactionDialog($uibModal, $scope.baseUrl, $scope.me.$$meta.permalink, to, $scope.reload);
       }
 
       $scope.deleteMessage = function(message) {
