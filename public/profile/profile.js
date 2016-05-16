@@ -23,6 +23,8 @@ function ProfileController($scope, innergerbil, $q, $stateParams, $uibModal) {
     }));
 
     return $q.all(promises).then(function (results) {
+      var reactions = [];
+      var i;
       $scope.profile = results[0];
       $scope.contactdetails = results[1].results;
       $scope.partyrelations = results[2].results;
@@ -33,6 +35,12 @@ function ProfileController($scope, innergerbil, $q, $stateParams, $uibModal) {
       addBalancesOfPartyrelationsToParties($scope.profile, $scope.partyrelations, groupParty)
 console.info('$scope.messages');
 console.info($scope.messages);
+      for (i = 0; i < $scope.messages.length; i++) {
+        reactions = reactions.concat(arrayOfPermalinksFromArrayOfSRILinks($scope.messages[i].$$reactions));
+      }
+      return innergerbil.getPatternBatch($scope.baseUrl + '/messages?expand=results.author&hrefs=*', reactions);
+    }).then(function (reactions) {
+      addReactionsToMessages($scope.messages, reactions);
     });
   }
 
