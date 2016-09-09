@@ -1,7 +1,8 @@
 function MainController($scope, innergerbil, $q) {
   var partyContactDetails;
   var promises = [];
-  var baseUrl = 'https://inner-gerbil-test.herokuapp.com';
+  //var baseUrl = 'https://inner-gerbil-test.herokuapp.com';
+  var baseUrl = 'https://inner-gerbil-sorokh-test.herokuapp.com';
   // TODO: client of innergerbil service should not know root URL
 
   //innergerbil.getListResourcePaged("http://localhost:5000/parties", {
