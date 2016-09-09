@@ -1,0 +1,29 @@
+{
+  "name": "arty-gerbil",
+  "version": "0.1.0",
+  "description": "The default UI for the next generation mutual credit system",
+  "main": "web.js",
+  "scripts": {
+    "start": "node web.js",
+  },
+  "dependencies": {
+    "gzippo": "0.2.0",
+    "express": "4.13.3"
+  },
+  "engines": {
+    "node": "4.1.1",
+    "npm": "2.14.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimitrydhondt/arty-gerbil.git"
+  },
+  "keywords": [
+    "node",
+    "heroku"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "1.7.0",
+  }
+}
