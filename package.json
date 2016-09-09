@@ -4,7 +4,7 @@
   "description": "The default UI for the next generation mutual credit system",
   "main": "web.js",
   "scripts": {
-    "start": "node web.js",
+    "start": "node web.js"
   },
   "dependencies": {
     "gzippo": "0.2.0",
